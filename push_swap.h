@@ -6,7 +6,7 @@
 /*   By: twalter <twalter@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/19 13:29:16 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/19 15:00:00 by twalter          ###   ########.fr       */
+/*   Updated: 2026/11/19 20:40:52 by twalter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,12 @@
 
 # include "./ft_printf/ft_printf.h"
 # include "./ft_printf/libft/libft.h"
+# include <limits.h>
 
 /// @brief Enum with the selectable sort algos
 typedef enum e_algo
 {
+	NONE,
 	ADAPTIVE,
 	SIMPLE,
 	MEDIUM,
@@ -28,11 +30,10 @@ typedef enum e_algo
 /// @brief Struct with the items to sort
 typedef struct s_node
 {
-	int				*value;
-	struct s_list	*prev;
-	struct s_list	*next;
+	int				value;
+	struct s_node	*prev;
+	struct s_node	*next;
 }					t_node;
-
 
 /// @brief Struct for program mode and counter for bench mode
 typedef struct s_mode
