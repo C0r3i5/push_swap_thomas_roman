@@ -6,7 +6,7 @@
 /*   By: twalter <twalter@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/19 13:36:43 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/19 20:58:58 by twalter          ###   ########.fr       */
+/*   Updated: 2026/11/19 21:17:23 by twalter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,31 +31,29 @@ static t_node *atoi_strict_node(char *arg)
 {
 	int		idx;
 	int		sign;
-	int		num_value;
-	t_node	*node;
+	long	num_value;
 
 	idx = 0;
 	sign = 1;
 	num_value = 0;
+	if ((arg[idx] == '+' || arg[idx] == '-'))
+	{
+		if (arg[idx] == '-')
+			sign = -1;
+		idx++;
+	}
+	if (arg[idx] == '\0')
+		return (NULL);
 	while (arg[idx] != '\0')
 	{
-		if ((arg[idx] == '+' || arg[idx] == '-') && idx == 0)
-		{
-			if (arg[idx] == '-')
-				sign = -1;
-			idx++;
-		}
-		else if (arg[idx] >= '0' && arg[idx] <= '9') 
-		{
-			num_value = (num_value) * 10 + (arg[idx] - '0');
-			idx++;
-		} 
-		else 
+		if (arg[idx] < '0' || arg[idx] > '9')
+			return (NULL);
+		num_value = (num_value) * 10 + (arg[idx] - '0');
+		idx++;
+		if (num_value * sign > INT_MAX || num_value * sign < INT_MIN)
 			return (NULL);
 	}
-	node = new_node(num_value * sign);
-
-	return (node);
+	return (new_node(num_value * sign));
 }
 
 static int is_flag(char *arg, t_mode *mode)
