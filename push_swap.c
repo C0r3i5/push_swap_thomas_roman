@@ -6,13 +6,59 @@
 /*   By: twalter <twalter@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/19 13:36:43 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/19 21:17:23 by twalter          ###   ########.fr       */
+/*   Updated: 2026/11/19 21:38:53 by twalter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "push_swap.h"
 
 #include <stdio.h>
+
+static void	free_split(char **parts)
+{
+	int	idx;
+
+	idx = 0;
+	if (parts == NULL)
+		return ;
+	while (parts[idx] != NULL)
+	{
+		free(parts[idx]);
+		idx++;
+	}
+	free(parts);
+}
+
+static int	append_unique(t_node **lst_a, t_node *node)
+{
+	
+}
+
+static int	parse_number_arg(char *arg, t_node **lst_a)
+{
+	char	**parts;
+	int		idx;
+	t_node	*node;
+
+	parts = ft_split(arg, ' ');
+	idx = 0;
+	if (parts == NULL || parts[0] == NULL)
+	{
+		free_split(parts);
+		return (-1);
+	}
+	while (parts[idx] != NULL)
+	{
+		node = atoi_strict_node(parts[idx]);
+		if (node == NULL || append_unique(lst_a, node) == -1)
+		{
+			free_split(parts);
+			free(node);
+			return (-1);
+		}
+		idx++;
+	}
+}
 
 static t_node	*new_node(int value)
 {
