@@ -6,7 +6,7 @@
 /*   By: twalter <twalter@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/19 13:36:43 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/19 22:03:30 by twalter          ###   ########.fr       */
+/*   Updated: 2026/11/19 22:11:05 by twalter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,26 @@ static void	free_split(char **parts)
 	free(parts);
 }
 
+static int	find_dub(t_node *lst, int value) 
+{
+	t_node *node_current;
+	t_node *node_start;
+	
+	if (lst == NULL) 
+		return (0);
+	node_start = lst;
+	if (node_start->value == value)
+		return (1);
+	node_current = node_start->prev;
+	while (node_current != node_start)
+	{
+		if (value == node_current->value)
+			return (1);
+		node_current = node_current->prev;
+	}
+	return (0);
+}
+
 static int	append_unique(t_node **lst_a, t_node *node)
 {
 	t_node *node_current;
@@ -42,16 +62,8 @@ static int	append_unique(t_node **lst_a, t_node *node)
 		return (0);
 	}
 	node_start = *lst_a;
-	if (node_start->value == node->value)
+	if (find_dub(node_start, node->value) == 1)
 		return (-1);
-
-	node_current = node_start->prev;
-	while (node_current != node_start)
-	{
-		if (node->value == node_current->value)
-			return (-1);
-		node_current = node_current->prev;
-	}
 	node_current = node_start->next;
 	node_start->next = node;
 	node->prev = node_start;
