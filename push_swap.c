@@ -6,7 +6,7 @@
 /*   By: twalter <twalter@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/19 13:36:43 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/19 14:59:34 by twalter          ###   ########.fr       */
+/*   Updated: 2026/11/19 15:40:12 by twalter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,35 @@
 
 #include <stdio.h>
 
+static int is_flag(char *arg, t_mode *mode)
+{
+	if (!ft_strncmp(arg, "--simple", 8))
+		mode->algo = SIMPLE;
+	else if (!ft_strncmp(arg, "--medium", 8))
+		mode->algo = MEDIUM;
+	else if (!ft_strncmp(arg, "--complex", 9))
+		mode->algo = COMPLEX;
+	else if (!ft_strncmp(arg, "--adaptive", 10))
+		mode->algo = ADAPTIVE;
+
+	if (!ft_strncmp(arg, "--bench", 7))
+		mode->bench_active = 1;
+
+	return (0);
+}
+
+static int parse_arguments(int argc, char **argv, t_mode *mode)
+{
+	int	i;
+
+	i = 1;
+	while (i < argc)
+	{
+		is_flag(argv[i], mode);
+		i++;
+	}
+	return (0);
+}
 
 
 int	main(int argc, char *argv[])
@@ -32,6 +61,7 @@ int	main(int argc, char *argv[])
 		return (0);
 
 	ft_bzero(&mode, sizeof(t_mode));
-
+	parse_arguments(argc, argv, &mode);
+	printf("Mode: %i, bench: %i", mode.algo, mode.bench_active);
 
 }
