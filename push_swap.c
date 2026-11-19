@@ -6,7 +6,7 @@
 /*   By: twalter <twalter@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/19 13:36:43 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/19 21:43:37 by twalter          ###   ########.fr       */
+/*   Updated: 2026/11/19 22:03:30 by twalter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,33 @@ static void	free_split(char **parts)
 
 static int	append_unique(t_node **lst_a, t_node *node)
 {
+	t_node *node_current;
+	t_node *node_start;
+
 	if (*lst_a == NULL)
 	{
 		node->next = node;
 		node->prev = node;
 		*lst_a = node;
+		return (0);
 	}
+	node_start = *lst_a;
+	if (node_start->value == node->value)
+		return (-1);
+
+	node_current = node_start->prev;
+	while (node_current != node_start)
+	{
+		if (node->value == node_current->value)
+			return (-1);
+		node_current = node_current->prev;
+	}
+	node_current = node_start->next;
+	node_start->next = node;
+	node->prev = node_start;
+	node->next = node_current;
+	node_current->prev = node;
+	return (0);
 }
 
 static int	parse_number_arg(char *arg, t_node **lst_a)
