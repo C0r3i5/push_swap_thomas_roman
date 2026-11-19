@@ -6,7 +6,7 @@
 /*   By: twalter <twalter@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/19 13:36:43 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/19 22:11:05 by twalter          ###   ########.fr       */
+/*   Updated: 2026/11/19 22:12:46 by twalter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,7 +194,6 @@ static int parse_arguments(int argc, char **argv, t_mode *mode)
 	}
 	return (0);
 }
-
 
 int	main(int argc, char *argv[])
 {
