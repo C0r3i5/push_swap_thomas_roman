@@ -6,13 +6,18 @@
 /*   By: twalter <twalter@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/19 13:36:43 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/19 15:40:12 by twalter          ###   ########.fr       */
+/*   Updated: 2026/11/19 15:56:15 by twalter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "push_swap.h"
 
 #include <stdio.h>
+
+static int atoi_strict(char *arg)
+{
+	
+}
 
 static int is_flag(char *arg, t_mode *mode)
 {
@@ -24,11 +29,12 @@ static int is_flag(char *arg, t_mode *mode)
 		mode->algo = COMPLEX;
 	else if (!ft_strncmp(arg, "--adaptive", 10))
 		mode->algo = ADAPTIVE;
-
-	if (!ft_strncmp(arg, "--bench", 7))
+	else if (!ft_strncmp(arg, "--bench", 7))
 		mode->bench_active = 1;
+	else
+		return (0);
 
-	return (0);
+	return (1);
 }
 
 static int parse_arguments(int argc, char **argv, t_mode *mode)
@@ -62,6 +68,7 @@ int	main(int argc, char *argv[])
 
 	ft_bzero(&mode, sizeof(t_mode));
 	parse_arguments(argc, argv, &mode);
+
 	printf("Mode: %i, bench: %i", mode.algo, mode.bench_active);
 
 }
