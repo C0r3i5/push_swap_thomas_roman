@@ -6,7 +6,7 @@
 #    By: twalter <twalter@student.42heilbronn.de>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/11/19 13:24:31 by twalter           #+#    #+#              #
-#    Updated: 2026/11/19 13:55:27 by twalter          ###   ########.fr        #
+#    Updated: 2026/11/19 20:18:05 by twalter          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ AR := ar rcs
 
 RM := rm -f
 
-CFLAGS := -Wall -Wextra -Werror I$(FT_PRINTF_PATH)
+CFLAGS := -Wall -Wextra -Werror -I$(FT_PRINTF_PATH)
 
 SOURCES := push_swap.c
 
