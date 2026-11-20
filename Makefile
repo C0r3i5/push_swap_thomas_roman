@@ -6,7 +6,7 @@
 #    By: twalter <twalter@student.42heilbronn.de>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/11/19 13:24:31 by twalter           #+#    #+#              #
-#    Updated: 2026/11/19 20:32:56 by twalter          ###   ########.fr        #
+#    Updated: 2026/11/20 13:24:58 by twalter          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,9 +20,13 @@ CC := cc
 
 RM := rm -f
 
-CFLAGS := -Wall -Wextra -Werror -I$(FT_PRINTF_PATH)
+# CFLAGS := -Wall -Wextra -Werror -I$(FT_PRINTF_PATH) 
 
-SOURCES := push_swap.c
+# CFLAGS := -I$(FT_PRINTF_PATH) -fsanitize=address
+
+CFLAGS := -I$(FT_PRINTF_PATH)
+
+SOURCES := push_swap.c arguments.c node_functions.c
 
 OBJECTS := $(SOURCES:.c=.o)
 

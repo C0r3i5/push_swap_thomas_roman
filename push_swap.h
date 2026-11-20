@@ -6,7 +6,7 @@
 /*   By: twalter <twalter@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/19 13:29:16 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/20 12:30:34 by twalter          ###   ########.fr       */
+/*   Updated: 2026/11/20 13:30:08 by twalter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,11 @@ typedef struct s_mode
 	void	*head_b;
 	long	size_a;
 }			t_mode;
+
+int 	parse_arguments(int argc, char **argv, t_mode *mode, t_node **lst_a);
+
+t_node	*new_node(int value);
+int		find_dub(t_node **lst, int value);
+int		append_unique(t_node **lst_a, t_node *node, t_mode *mode);
 
 #endif
