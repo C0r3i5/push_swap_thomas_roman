@@ -6,7 +6,7 @@
 /*   By: twalter <twalter@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/19 13:36:43 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/20 19:09:45 by twalter          ###   ########.fr       */
+/*   Updated: 2026/11/20 19:33:55 by twalter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 int	main(int argc, char *argv[])
 {
 	t_node	*lst_a;
-	t_node	*lst_b;
+	// t_node	*lst_b;
 	t_mode	mode;
 	t_node  *node;
 
@@ -28,13 +28,13 @@ int	main(int argc, char *argv[])
 
 	ft_bzero(&mode, sizeof(t_mode));
 	lst_a = NULL;
-	lst_b = NULL;
+	// lst_b = NULL;
 	if (parse_arguments(argc, argv, &mode, &lst_a) == -1)
 	{
 		printf("-1\n");
 		return (0); // TODO: Error Ausgabe und free
 	}
-	mode.disorder = compute_disorder(lst_a, mode);
+	mode.disorder = compute_disorder(mode);
 
 	node = (t_node *)mode.head_a;
 	printf("Mode: %i, bench: %i, head_a: %p, size: %lu, disorder: %f\n", mode.algo, mode.bench_active, mode.head_a, mode.size_a, mode.disorder);

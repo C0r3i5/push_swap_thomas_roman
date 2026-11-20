@@ -6,7 +6,7 @@
 /*   By: twalter <twalter@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/20 13:19:35 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/20 13:55:03 by twalter          ###   ########.fr       */
+/*   Updated: 2026/11/20 19:32:39 by twalter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,8 +134,8 @@ static int is_flag(char *arg, t_mode *mode)
 /// @return 0 if all arguements are valid, -1 if a invalid arg is in the list
 int parse_arguments(int argc, char **argv, t_mode *mode, t_node **lst_a)
 {
-	size_t	idx;
-	int		ret_parse_arg;
+	int	idx;
+	int	ret_parse_arg;
 
 	idx = 1;
 	while (idx < argc)

@@ -6,7 +6,7 @@
 #    By: twalter <twalter@student.42heilbronn.de>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/11/19 13:24:31 by twalter           #+#    #+#              #
-#    Updated: 2026/11/20 17:02:19 by twalter          ###   ########.fr        #
+#    Updated: 2026/11/20 19:31:17 by twalter          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,11 +20,11 @@ CC := cc
 
 RM := rm -f
 
-# CFLAGS := -Wall -Wextra -Werror -I$(FT_PRINTF_PATH) 
+CFLAGS := -Wall -Wextra -Werror -I$(FT_PRINTF_PATH) 
 
 # CFLAGS := -I$(FT_PRINTF_PATH) -fsanitize=address
 
-CFLAGS := -I$(FT_PRINTF_PATH)
+# CFLAGS := -I$(FT_PRINTF_PATH)
 
 SOURCES := push_swap.c arguments.c node_functions.c stack_operations_1.c \
 			stack_operations_2.c stack_operations_3.c stack_operations_4.c
