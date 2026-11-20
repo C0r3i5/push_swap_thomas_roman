@@ -6,7 +6,7 @@
 /*   By: twalter <twalter@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/19 13:36:43 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/20 13:14:24 by twalter          ###   ########.fr       */
+/*   Updated: 2026/11/20 13:15:51 by twalter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -252,7 +252,7 @@ static double	compute_disorder(t_node *lst, t_mode mode)
 			total_pairs += 1;
 			printf("%d > %d\n", node_current_1->value, node_current_2->next->value);
 			if (node_current_1->value > node_current_2->next->value)
-				mistakes += 1;
+				mistakes++;
 			node_current_2 = node_current_2->next;
 		}
 		idx = 0;
