@@ -6,7 +6,7 @@
 /*   By: twalter <twalter@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/20 16:12:12 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/20 19:29:26 by twalter          ###   ########.fr       */
+/*   Updated: 2026/11/20 20:16:17 by twalter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,9 @@ void	pa(t_mode *mode)
 		return ;
 	add_headnode(&mode->head_a, &mode->size_a, node);
 	heal_node_list(&mode->head_a, &mode->size_a);
+	heal_node_list(&mode->head_b, &mode->size_b);
+	mode->pa += 1;
+	ft_printf("pa\n");
 }
 
 void	pb(t_mode *mode)
@@ -81,5 +84,8 @@ void	pb(t_mode *mode)
 	if (node == NULL)
 		return ;
 	add_headnode(&mode->head_b, &mode->size_b, node);
+	heal_node_list(&mode->head_a, &mode->size_a);
 	heal_node_list(&mode->head_b, &mode->size_b);
+	mode->pb += 1;
+	ft_printf("pb\n");
 }
