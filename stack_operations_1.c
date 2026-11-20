@@ -6,11 +6,41 @@
 /*   By: twalter <twalter@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/20 15:20:39 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/20 16:07:32 by twalter          ###   ########.fr       */
+/*   Updated: 2026/11/20 18:58:31 by twalter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "push_swap.h"
+
+static void	swap(t_node **head, size_t *size)
+{
+	t_node	*first_node;
+	t_node	*second_node;
+	t_node	*top_node;
+	t_node	*bottom_node;
+
+	if (*size < 2)
+		return ;
+
+	first_node = *head;
+	top_node = first_node->top;
+	second_node = first_node->bottom;
+	bottom_node = second_node->bottom;
+
+	first_node->top = second_node;
+	first_node->bottom = bottom_node;
+
+	second_node->top = top_node;
+	second_node->bottom = first_node;
+
+	top_node->bottom = second_node;
+	bottom_node->top = first_node;
+
+	first_node->position = 1;
+	second_node->position = 0;
+
+	*head = second_node;
+}
 
 /// @brief (swap a): Swap the first two elements at the top of stack a.
 /// Do nothing if there is only one or no elements.
@@ -18,34 +48,11 @@
 /// @return success 0, fail -1
 int	sa(t_mode *mode)
 {
-	t_node *current_first;
-	t_node *current_second;
-	t_node *current_top;
-	t_node *current_bottom;
-	
-	if (mode->size_a < 2)
-		return (0);
-	
-	current_first = (t_node *)mode->head_a;
-	current_top = current_first->top;
-	current_second = current_first->bottom;
-	current_bottom = current_second->bottom;
-
-	current_first->top = current_second;
-	current_first->bottom = current_bottom;
-
-	current_second->top = current_top;
-	current_second->bottom = current_first;
-
-	current_top->bottom = current_second;
-	current_bottom->top = current_first;
-
-	current_first->position = 1;
-	current_second->position = 0;
-
-	mode->head_a = current_second;
+	swap(&mode->head_a, &mode->size_a);
 	return (0);
 }
+
+
 
 /// @brief (swap b): Swap the first two elements at the top of stack b.
 /// Do nothing if there is only one or no elements.
@@ -53,32 +60,7 @@ int	sa(t_mode *mode)
 /// @return success 0, fail -1
 int	sb(t_mode *mode)
 {
-	t_node *current_first;
-	t_node *current_second;
-	t_node *current_top;
-	t_node *current_bottom;
-	
-	if (mode->size_b < 2)
-		return (0);
-	
-	current_first = (t_node *)mode->head_b;
-	current_top = current_first->top;
-	current_second = current_first->bottom;
-	current_bottom = current_second->bottom;
-
-	current_first->top = current_second;
-	current_first->bottom = current_bottom;
-
-	current_second->top = current_top;
-	current_second->bottom = current_first;
-
-	current_top->bottom = current_second;
-	current_bottom->top = current_first;
-
-	current_first->position = 1;
-	current_second->position = 0;
-
-	mode->head_b = current_second;
+	swap(&mode->head_b, &mode->size_b);
 	return (0);
 }
 /// @brief sa and sb at the same time
