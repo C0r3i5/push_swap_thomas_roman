@@ -6,7 +6,7 @@
 /*   By: twalter <twalter@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/20 13:23:14 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/20 14:02:50 by twalter          ###   ########.fr       */
+/*   Updated: 2026/11/20 15:13:44 by twalter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ int	append_unique(t_node **lst_a, t_node *node, t_mode *mode)
 		mode->head_a = node;
 		node->bottom = node;
 		node->top = node;
+		node->position = 0;
 		*lst_a = node;
 		mode->size_a = 1;
 		return (0);
@@ -85,6 +86,7 @@ int	append_unique(t_node **lst_a, t_node *node, t_mode *mode)
 	node_start->top = node;
 	node->top = node_current_last;
 	node->bottom = node_start;
+	node->position = mode->size_a;
 
 	mode->size_a += 1;
 	return (0);

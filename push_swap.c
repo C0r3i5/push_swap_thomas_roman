@@ -6,7 +6,7 @@
 /*   By: twalter <twalter@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/19 13:36:43 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/20 14:03:04 by twalter          ###   ########.fr       */
+/*   Updated: 2026/11/20 15:57:51 by twalter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	main(int argc, char *argv[])
 	t_node	*lst_a;
 	t_node	*lst_b;
 	t_mode	mode;
+	t_node  *node;
 
 	printf("Test\n");
 	// TODO: Check for Arguments (0)
@@ -35,7 +36,26 @@ int	main(int argc, char *argv[])
 	}
 	mode.disorder = compute_disorder(lst_a, mode);
 
+	node = (t_node *)mode.head_a;
 	printf("Mode: %i, bench: %i, head_a: %p, size: %lu, disorder: %f\n", mode.algo, mode.bench_active, mode.head_a, mode.size_a, mode.disorder);
-	printf("1: %i %p %p %p\n", lst_a->value, lst_a, lst_a->top, lst_a->bottom);
-	printf("2: %i %p %p %p\n", lst_a->bottom->value, lst_a->bottom, lst_a->bottom->top, lst_a->bottom->bottom);
+	printf("%lu: %i %p %p %p\n", node->position, node->value, node, node->top, node->bottom);
+	printf("%lu: %i %p %p %p\n", node->bottom->position, node->bottom->value, node->bottom, node->bottom->top, node->bottom->bottom);
+	printf("%lu: %i %p %p %p\n", node->bottom->bottom->position, node->bottom->bottom->value, node->bottom->bottom, node->bottom->bottom->top, node->bottom->bottom->bottom);
+
+	ra(&mode);
+
+	node = (t_node *)mode.head_a;
+	printf("Mode: %i, bench: %i, head_a: %p, size: %lu, disorder: %f\n", mode.algo, mode.bench_active, mode.head_a, mode.size_a, mode.disorder);
+	printf("%lu: %i %p %p %p\n", node->position, node->value, node, node->top, node->bottom);
+	printf("%lu: %i %p %p %p\n", node->bottom->position, node->bottom->value, node->bottom, node->bottom->top, node->bottom->bottom);
+	printf("%lu: %i %p %p %p\n", node->bottom->bottom->position, node->bottom->bottom->value, node->bottom->bottom, node->bottom->bottom->top, node->bottom->bottom->bottom);
+
+	ra(&mode);
+	
+	node = (t_node *)mode.head_a;
+	printf("Mode: %i, bench: %i, head_a: %p, size: %lu, disorder: %f\n", mode.algo, mode.bench_active, mode.head_a, mode.size_a, mode.disorder);
+	printf("%lu: %i %p %p %p\n", node->position, node->value, node, node->top, node->bottom);
+	printf("%lu: %i %p %p %p\n", node->bottom->position, node->bottom->value, node->bottom, node->bottom->top, node->bottom->bottom);
+	printf("%lu: %i %p %p %p\n", node->bottom->bottom->position, node->bottom->bottom->value, node->bottom->bottom, node->bottom->bottom->top, node->bottom->bottom->bottom);
+
 }

@@ -6,7 +6,7 @@
 #    By: twalter <twalter@student.42heilbronn.de>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/11/19 13:24:31 by twalter           #+#    #+#              #
-#    Updated: 2026/11/20 13:24:58 by twalter          ###   ########.fr        #
+#    Updated: 2026/11/20 16:12:04 by twalter          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,8 @@ RM := rm -f
 
 CFLAGS := -I$(FT_PRINTF_PATH)
 
-SOURCES := push_swap.c arguments.c node_functions.c
+SOURCES := push_swap.c arguments.c node_functions.c stack_operations_1.c \
+			stack_operations_2.c stack_operations_3.c stack_operations_4.c
 
 OBJECTS := $(SOURCES:.c=.o)
 
