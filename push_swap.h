@@ -6,7 +6,7 @@
 /*   By: twalter <twalter@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/19 13:29:16 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/20 16:39:32 by twalter          ###   ########.fr       */
+/*   Updated: 2026/11/20 18:41:44 by twalter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ typedef struct s_mode
 	double	disorder;
 	t_algo	algo;
 	int		bench_active;
-	void	*head_a;
-	void	*head_b;
+	t_node	*head_a;
+	t_node	*head_b;
 	size_t	size_a;
 	size_t	size_b;
 }			t_mode;

@@ -6,60 +6,35 @@
 /*   By: twalter <twalter@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/20 16:12:12 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/20 18:30:07 by twalter          ###   ########.fr       */
+/*   Updated: 2026/11/20 18:40:49 by twalter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "push_swap.h"
 
-t_node *cut_headnode_a(t_mode *mode)
+static t_node	*cut_headnode(t_node **head, size_t *size)
 {
-	t_node *current_top;
-	t_node *current_first;
-	t_node *current_second;
-	
-	if (mode->head_a == NULL || mode->size_a == 0)
-		return (NULL);
-	current_first = (t_node *)mode->head_a;
-	if (mode->size_a == 1)
-		mode->head_a = NULL;
-	else
-	{
-		current_top = current_first->top;
-		current_second = current_first->bottom;
-		current_second->top = current_top;
-		current_top->bottom = current_second;
-		mode->head_a = current_second;
-	}
-	current_first->top = current_first;
-	current_first->bottom = current_first;
-	mode->size_a -= 1;
-	return (current_first);
-}
+	t_node	*first_node;
+	t_node	*top_node;
+	t_node	*second_node;
 
-t_node *cut_headnode_b(t_mode *mode)
-{
-	t_node *current_top;
-	t_node *current_first;
-	t_node *current_second;
-	
-	if (mode->head_b == NULL || mode->size_b == 0)
+	if (*head == NULL || *size == 0)
 		return (NULL);
-	current_first = (t_node *)mode->head_b;
-	if (mode->size_b == 1)
-		mode->head_b = NULL;
+	first_node = *head;
+	if (*size == 1)
+		*head = NULL;
 	else
 	{
-		current_top = current_first->top;
-		current_second = current_first->bottom;
-		current_second->top = current_top;
-		current_top->bottom = current_second;
-		mode->head_b = current_second;
+		top_node = first_node->top;
+		second_node = first_node->bottom;
+		second_node->top = top_node;
+		top_node->bottom = second_node;
+		*head = second_node;
 	}
-	current_first->top = current_first;
-	current_first->bottom = current_first;
-	mode->size_b -= 1;
-	return (current_first);
+	first_node->top = first_node;
+	first_node->bottom = first_node;
+	*size -= 1;
+	return (first_node);
 }
 
 void	add_headnode_a(t_mode *mode, t_node *new_node)
@@ -118,7 +93,7 @@ int	pa(t_mode *mode)
 {
 	t_node	*node;
 
-	node = cut_headnode_b(mode);
+	node = cut_headnode(&mode->head_b, &mode->size_b);
 	add_headnode_a(mode, node);
 }
 
@@ -126,7 +101,7 @@ int	pb(t_mode *mode)
 {
 	t_node	*node;
 
-	node = cut_headnode_a(mode);
+	node = cut_headnode(&mode->head_a, &mode->size_a);
 	add_headnode_b(mode, node);
 }
 
