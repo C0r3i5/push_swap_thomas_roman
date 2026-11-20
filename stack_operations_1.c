@@ -6,12 +6,15 @@
 /*   By: twalter <twalter@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/20 15:20:39 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/20 20:14:25 by twalter          ###   ########.fr       */
+/*   Updated: 2026/11/20 21:53:58 by twalter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "push_swap.h"
 
+/// @brief Swap the first and second node in a list
+/// @param head Pointer to the head node of the circular list
+/// @param size Pointer to the stack size counter
 static void	swap(t_node **head, size_t *size)
 {
 	t_node	*first_node;
@@ -22,7 +25,6 @@ static void	swap(t_node **head, size_t *size)
 
 	first_node = *head;
 	second_node = first_node->bottom;
-
 	if (*size > 2)
 	{
 		first_node->top->bottom = second_node;
@@ -39,7 +41,7 @@ static void	swap(t_node **head, size_t *size)
 
 /// @brief (swap a): Swap the first two elements at the top of stack a.
 /// Do nothing if there is only one or no elements.
-/// @param mode The list with the config/mode values (pointer to head)
+/// @param mode Program configuration and operation counters
 void	sa(t_mode *mode)
 {
 	if (mode->size_a < 2)
@@ -51,7 +53,7 @@ void	sa(t_mode *mode)
 
 /// @brief (swap b): Swap the first two elements at the top of stack b.
 /// Do nothing if there is only one or no elements.
-/// @param mode The list with the config/mode values (pointer to head)
+/// @param mode Program configuration and operation counters
 void	sb(t_mode *mode)
 {
 	if (mode->size_b < 2)
@@ -61,7 +63,7 @@ void	sb(t_mode *mode)
 	ft_printf("sb\n");
 }
 /// @brief sa and sb at the same time
-/// @param mode The list with the config/mode values (pointer to head)
+/// @param mode Program configuration and operation counters
 void	ss(t_mode *mode)
 {
 	if (mode->size_a < 2 && mode->size_b < 2)
@@ -70,5 +72,4 @@ void	ss(t_mode *mode)
 	swap(&mode->head_b, &mode->size_b);
     mode->ss += 1;
 	ft_printf("ss\n");
-
 }

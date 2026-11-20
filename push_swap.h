@@ -6,7 +6,7 @@
 /*   By: twalter <twalter@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/19 13:29:16 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/20 19:40:59 by twalter          ###   ########.fr       */
+/*   Updated: 2026/11/20 20:57:54 by twalter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct s_mode
 	size_t	rrr;
 	double	disorder;
 	t_algo	algo;
+	t_algo	used_algo;
 	int		bench_active;
 	t_node	*head_a;
 	t_node	*head_b;
@@ -82,5 +83,9 @@ void	pa(t_mode *mode);
 void	pb(t_mode *mode);
 
 void	heal_node_list(t_node **head, size_t *size);
+
+void	print_bench(t_mode mode);
+t_algo	resolve_algo(t_mode *mode);
+void	start_sort(t_mode *mode);
 
 #endif

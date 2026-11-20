@@ -6,12 +6,16 @@
 /*   By: twalter <twalter@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/20 16:12:12 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/20 20:16:17 by twalter          ###   ########.fr       */
+/*   Updated: 2026/11/20 21:51:44 by twalter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "push_swap.h"
 
+/// @brief Cut the top node from the list
+/// @param head Pointer to the head node of the circular list
+/// @param size Pointer to the stack size counter
+/// @return The removed top node, or NULL if the list is empty
 static t_node	*cut_headnode(t_node **head, size_t *size)
 {
 	t_node	*first_node;
@@ -37,6 +41,10 @@ static t_node	*cut_headnode(t_node **head, size_t *size)
 	return (first_node);
 }
 
+/// @brief Add a node to the top of the list
+/// @param head Pointer to the head node of the circular list
+/// @param size Pointer to the stack size counter to update
+/// @param new_node The new node
 static void	add_headnode(t_node **head, size_t *size, t_node *new_node)
 {
 	t_node	*first_node;
@@ -62,6 +70,9 @@ static void	add_headnode(t_node **head, size_t *size, t_node *new_node)
 	*size += 1;
 }
 
+/// @brief (push a): Take the first element at the top of b and put 
+/// it at the top of a. Do nothing if b is empty.
+/// @param mode Program configuration and operation counters
 void	pa(t_mode *mode)
 {
 	t_node	*node;
@@ -76,6 +87,9 @@ void	pa(t_mode *mode)
 	ft_printf("pa\n");
 }
 
+/// @brief (push b): Take the first element at the top of a and put 
+/// it at the top of b. Do nothing if a is empty.
+/// @param mode Program configuration and operation counters
 void	pb(t_mode *mode)
 {
 	t_node	*node;

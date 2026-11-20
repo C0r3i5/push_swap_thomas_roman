@@ -6,7 +6,7 @@
 #    By: twalter <twalter@student.42heilbronn.de>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/11/19 13:24:31 by twalter           #+#    #+#              #
-#    Updated: 2026/11/20 19:53:42 by twalter          ###   ########.fr        #
+#    Updated: 2026/11/20 22:10:18 by twalter          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,14 +22,15 @@ RM := rm -f
 
 # CFLAGS := -Wall -Wextra -Werror -I$(FT_PRINTF_PATH) 
 
-CFLAGS := -Wall -Wextra -Werror -I$(FT_PRINTF_PATH) -fsanitize=address
+# CFLAGS := -Wall -Wextra -Werror -I$(FT_PRINTF_PATH) -fsanitize=address
 
-# CFLAGS := -I$(FT_PRINTF_PATH) -fsanitize=address
+CFLAGS := -I$(FT_PRINTF_PATH) -fsanitize=address
 
 # CFLAGS := -I$(FT_PRINTF_PATH)
 
 SOURCES := push_swap.c arguments.c node_functions.c stack_operations_1.c \
-			stack_operations_2.c stack_operations_3.c stack_operations_4.c
+			stack_operations_2.c stack_operations_3.c stack_operations_4.c \
+			bench.c sort_selector.c
 
 OBJECTS := $(SOURCES:.c=.o)
 
@@ -37,7 +38,7 @@ DEPS := push_swap.h $(FT_PRINTF_PATH)/ft_printf.h
 
 all: $(NAME)
 
-$(FT_PRINTF): 
+$(FT_PRINTF):
 	$(MAKE) -C $(FT_PRINTF_PATH)
 
 $(NAME): $(FT_PRINTF) $(OBJECTS)

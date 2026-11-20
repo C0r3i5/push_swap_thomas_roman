@@ -6,15 +6,13 @@
 /*   By: twalter <twalter@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/20 13:19:35 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/20 20:01:14 by twalter          ###   ########.fr       */
+/*   Updated: 2026/11/20 21:52:50 by twalter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "push_swap.h"
 
-#include <stdio.h>
-
-/// @brief Free split list
+/// @brief Free a NULL-terminated array of strings.
 /// @param parts List with items
 static void	free_split(char **parts)
 {
@@ -33,7 +31,7 @@ static void	free_split(char **parts)
 
 /// @brief Convert a string to a number (if possible) and create a new node
 /// @param arg Argument, should be a signed int number
-/// @return A new node element or NULL if an error
+/// @return A new node element or NULL on error
 static t_node *atoi_strict_node(char *arg)
 {
 	size_t	idx;
@@ -63,10 +61,12 @@ static t_node *atoi_strict_node(char *arg)
 	return (new_node((int)(num_value * sign)));
 }
 
-/// @brief Parse a String, split it and commission atoi and cappend_unique.
+/// @brief Parse a string, split it, and call atoi_strict_node and 
+/// append_unique
 /// @param arg A string argument
 /// @param lst_a List A with the current values
-/// @return Error -1 
+/// @param mode Program configuration and operation counters
+/// @return 0 on success, -1 on error
 static int	parse_number_arg(char *arg, t_node **lst_a, t_mode *mode)
 {
 	char	**parts;
@@ -97,8 +97,8 @@ static int	parse_number_arg(char *arg, t_node **lst_a, t_mode *mode)
 
 /// @brief Checks whether the passed argument is a configuration flag
 /// @param arg The argument to check
-/// @param mode The list for setting the mode 
-/// @return Is flag (1) or not (0), -1 if a invalid arguemnt is passed
+/// @param mode Program configuration and operation counters
+/// @return Valid flag 1, not a known flag 0, -1 on conflicting strategy flags
 static int is_flag(char *arg, t_mode *mode)
 {
 	t_algo	parsed_algo;
@@ -108,7 +108,6 @@ static int is_flag(char *arg, t_mode *mode)
 		mode->bench_active = 1;
 		return (1);
 	}
-
 	if (!ft_strncmp(arg, "--simple", 9))
 		parsed_algo = SIMPLE;
 	else if (!ft_strncmp(arg, "--medium", 9))
@@ -119,20 +118,19 @@ static int is_flag(char *arg, t_mode *mode)
 		parsed_algo = ADAPTIVE;
 	else
 		return (0);
-
 	if (mode->algo != NONE)
 		return (-1);
 	else
 		mode->algo = parsed_algo;
-
 	return (1);
 }
 
 /// @brief Start the check of every argument for flag or int number
 /// @param argc Number of passed arguments 
 /// @param argv List of the arguments
-/// @param mode The list for setting the mode 
-/// @return 0 if all arguements are valid, -1 if a invalid arg is in the list
+/// @param mode Program configuration and operation counters
+/// @param lst_a List with the received numbers
+/// @return 0 if all arguments are valid, -1 if an invalid arg is in the list
 int parse_arguments(int argc, char **argv, t_mode *mode, t_node **lst_a)
 {
 	int	idx;

@@ -6,7 +6,7 @@
 /*   By: twalter <twalter@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/19 13:36:43 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/20 19:58:28 by twalter          ###   ########.fr       */
+/*   Updated: 2026/11/20 21:38:50 by twalter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 #include <stdio.h>
 
+/// @brief Free all nodes in the circular list and reset head and size.
+/// @param head Pointer to the head node of the circular list
+/// @param size Pointer to the stack size counter to update
 static void free_stack(t_node **head, size_t *size)
 {
 	t_node *node_current;
@@ -39,25 +42,26 @@ static void free_stack(t_node **head, size_t *size)
 int	main(int argc, char *argv[])
 {
 	t_node	*lst_a;
-	// t_node	*lst_b;
 	t_mode	mode;
 	t_node  *node;
 
-	printf("Test\n");
-	// TODO: Check for Arguments (0)
 	if (argc < 2)
 		return (0);
 
 	ft_bzero(&mode, sizeof(t_mode));
 	lst_a = NULL;
-	// lst_b = NULL;
 	if (parse_arguments(argc, argv, &mode, &lst_a) == -1)
 	{
 		ft_putendl_fd("Error", 2);
 		free_stack(&mode.head_a, &mode.size_a);
 		return (1);
 	}
-	mode.disorder = compute_disorder(mode);
+	if (mode.size_a == 0)
+		return (0);
+	
+	start_sort(&mode);
+
+
 
 	node = (t_node *)mode.head_a;
 	printf("Mode: %i, bench: %i, head_a: %p, size: %lu, disorder: %f\n", mode.algo, mode.bench_active, mode.head_a, mode.size_a, mode.disorder);
@@ -83,6 +87,9 @@ int	main(int argc, char *argv[])
 	printf("%lu: %i %p %p %p\n", node->bottom->position, node->bottom->value, node->bottom, node->bottom->top, node->bottom->bottom);
 	printf("%lu: %i %p %p %p\n", node->bottom->bottom->position, node->bottom->bottom->value, node->bottom->bottom, node->bottom->bottom->top, node->bottom->bottom->bottom);
 
+
+
+	print_bench(mode);
 	free_stack(&mode.head_a, &mode.size_a);
 	free_stack(&mode.head_b, &mode.size_b);
 }
