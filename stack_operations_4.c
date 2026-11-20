@@ -6,7 +6,7 @@
 /*   By: twalter <twalter@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/20 16:12:12 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/20 16:55:53 by twalter          ###   ########.fr       */
+/*   Updated: 2026/11/20 18:19:25 by twalter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,16 +101,16 @@ int	pa(t_mode *mode)
 {
 	t_node	*node;
 
-	node = cut_headnode_a(mode);
-	add_headnode_b(mode, node);
+	node = cut_headnode_b(mode);
+	add_headnode_a(mode, node);
 }
 
 int	pb(t_mode *mode)
 {
 	t_node	*node;
 
-	node = cut_headnode_b(mode);
-	add_headnode_a(mode, node);
+	node = cut_headnode_a(mode);
+	add_headnode_b(mode, node);
 }
 
 void	heal_node_list(t_mode *mode)
