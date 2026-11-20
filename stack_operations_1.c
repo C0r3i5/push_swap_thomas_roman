@@ -6,7 +6,7 @@
 /*   By: twalter <twalter@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/20 15:20:39 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/20 19:28:00 by twalter          ###   ########.fr       */
+/*   Updated: 2026/11/20 19:28:52 by twalter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,10 @@ static void	swap(t_node **head, size_t *size)
 /// @brief (swap a): Swap the first two elements at the top of stack a.
 /// Do nothing if there is only one or no elements.
 /// @param mode The list with the config/mode values (pointer to head)
-/// @return success 0, fail -1
-int	sa(t_mode *mode)
+void	sa(t_mode *mode)
 {
 	swap(&mode->head_a, &mode->size_a);
-	return (0);
+	return ;
 }
 
 
@@ -52,19 +51,17 @@ int	sa(t_mode *mode)
 /// @brief (swap b): Swap the first two elements at the top of stack b.
 /// Do nothing if there is only one or no elements.
 /// @param mode The list with the config/mode values (pointer to head)
-/// @return success 0, fail -1
-int	sb(t_mode *mode)
+void	sb(t_mode *mode)
 {
 	swap(&mode->head_b, &mode->size_b);
-	return (0);
+	return ;
 }
 /// @brief sa and sb at the same time
 /// @param mode The list with the config/mode values (pointer to head)
-/// @return success 0, fail -1
-int	ss(t_mode *mode)
+void	ss(t_mode *mode)
 {
 	sa(mode);
 	sb(mode);
 
-	return (0);
+	return ;
 }

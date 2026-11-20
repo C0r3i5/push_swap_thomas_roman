@@ -6,7 +6,7 @@
 /*   By: twalter <twalter@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/19 13:29:16 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/20 19:08:15 by twalter          ###   ########.fr       */
+/*   Updated: 2026/11/20 19:27:52 by twalter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,20 +66,20 @@ int		find_dub(t_node **lst, int value);
 int		append_unique(t_node **lst_a, t_node *node, t_mode *mode);
 double	compute_disorder(t_node *lst, t_mode mode);
 
-int		sa(t_mode *mode);
-int		sb(t_mode *mode);
-int		ss(t_mode *mode);
+void	sa(t_mode *mode);
+void	sb(t_mode *mode);
+void	ss(t_mode *mode);
 
-int		ra(t_mode *mode);
-int		rb(t_mode *mode);
-int		rr(t_mode *mode);
+void	ra(t_mode *mode);
+void	rb(t_mode *mode);
+void	rr(t_mode *mode);
 
-int		rra(t_mode *mode);
-int		rrb(t_mode *mode);
-int		rrr(t_mode *mode);
+void	rra(t_mode *mode);
+void	rrb(t_mode *mode);
+void	rrr(t_mode *mode);
 
-int		pa(t_mode *mode);
-int		pb(t_mode *mode);
+void	pa(t_mode *mode);
+void	pb(t_mode *mode);
 
 void	heal_node_list(t_node **head, size_t *size);
 

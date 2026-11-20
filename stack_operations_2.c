@@ -6,7 +6,7 @@
 /*   By: twalter <twalter@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/20 15:49:16 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/20 19:10:32 by twalter          ###   ########.fr       */
+/*   Updated: 2026/11/20 19:26:34 by twalter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,7 @@ static void	rotate_stack(t_node **head, size_t *size)
 /// @brief (rotate a): Shift up all elements of stack a by one.
 /// The first element becomes the last one.
 /// @param mode The list with the config/mode values (pointer to head)
-/// @return success 0, fail -1
-int	ra(t_mode *mode)
+void	ra(t_mode *mode)
 {
 	rotate_stack(&mode->head_a, &mode->size_a);
 }
@@ -36,16 +35,14 @@ int	ra(t_mode *mode)
 /// @brief (rotate b): Shift up all elements of stack b by one.
 /// The first element becomes the last one.
 /// @param mode The list with the config/mode values (pointer to head)
-/// @return success 0, fail -1
-int	rb(t_mode *mode)
+void	rb(t_mode *mode)
 {
 	rotate_stack(&mode->head_b, &mode->size_b);
 }
 
 /// @brief ra and rb at the same time.
 /// @param mode The list with the config/mode values (pointer to head)
-/// @return success 0, fail -1
-int	rr(t_mode *mode)
+void	rr(t_mode *mode)
 {
 	ra(mode);
 	rb(mode);
