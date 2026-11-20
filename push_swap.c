@@ -6,7 +6,7 @@
 /*   By: twalter <twalter@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/19 13:36:43 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/19 22:12:46 by twalter          ###   ########.fr       */
+/*   Updated: 2026/11/20 12:03:46 by twalter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 #include <stdio.h>
 
+/// @brief Free split list
+/// @param parts List with items
 static void	free_split(char **parts)
 {
 	int	idx;
@@ -28,15 +30,39 @@ static void	free_split(char **parts)
 	}
 	free(parts);
 }
+/// @brief Create a new unconnected node with the value
+/// @param value Signed Int value
+/// @return The new node or NULL
+static t_node	*new_node(int value)
+{
+	t_node	*node;
 
-static int	find_dub(t_node *lst, int value) 
+	printf("T3 %i\n", value);
+	node = malloc(sizeof(t_node) * 1);
+	if (node == NULL)
+		return (NULL);
+	node->value = value;
+	node->next = node;
+	node->prev = node;
+	return (node);
+}
+
+/// @brief Check if the new value is already in the list
+/// @param lst The existing list
+/// @param value The new value to check
+/// @return Dublicate 1, unique 0
+static int	find_dub(t_node **lst, int value) 
 {
 	t_node *node_current;
 	t_node *node_start;
 	
 	if (lst == NULL) 
 		return (0);
-	node_start = lst;
+
+	node_start = *lst;
+	if (node_start == NULL)
+		return (0);
+
 	if (node_start->value == value)
 		return (1);
 	node_current = node_start->prev;
@@ -49,68 +75,38 @@ static int	find_dub(t_node *lst, int value)
 	return (0);
 }
 
-static int	append_unique(t_node **lst_a, t_node *node)
+/// @brief Append new node to a existing list if value is unique
+/// @param lst_a The existing list with values
+/// @param node The new node canidate
+/// @return Error -1, Success 0
+static int	append_unique(t_node **lst_a, t_node *node, t_mode *mode)
 {
-	t_node *node_current;
+	t_node *node_current_first;
 	t_node *node_start;
 
 	if (*lst_a == NULL)
 	{
+		mode->head_a = node;
 		node->next = node;
 		node->prev = node;
 		*lst_a = node;
 		return (0);
 	}
-	node_start = *lst_a;
-	if (find_dub(node_start, node->value) == 1)
+	node_start = (t_node *)mode->head_a;
+	if (find_dub(lst_a, node->value) == 1)
 		return (-1);
-	node_current = node_start->next;
+	
+	node_current_first = node_start->next;
 	node_start->next = node;
 	node->prev = node_start;
-	node->next = node_current;
-	node_current->prev = node;
+	node->next = node_current_first;
+	node_current_first->prev = node;
 	return (0);
 }
 
-static int	parse_number_arg(char *arg, t_node **lst_a)
-{
-	char	**parts;
-	int		idx;
-	t_node	*node;
-
-	parts = ft_split(arg, ' ');
-	idx = 0;
-	if (parts == NULL || parts[0] == NULL)
-	{
-		free_split(parts);
-		return (-1);
-	}
-	while (parts[idx] != NULL)
-	{
-		node = atoi_strict_node(parts[idx]);
-		if (node == NULL || append_unique(lst_a, node) == -1)
-		{
-			free_split(parts);
-			free(node);
-			return (-1);
-		}
-		idx++;
-	}
-}
-
-static t_node	*new_node(int value)
-{
-	t_node	*node;
-
-	node = malloc(sizeof(t_node) * 1);
-	if (node == NULL)
-		return (NULL);
-	node->value = value;
-	node->next = NULL;
-	node->prev = NULL;
-	return (node);
-}
-
+/// @brief Convert a string to a number (if possible) and create a new node
+/// @param arg Argument, should be a signed int number
+/// @return A new node element or NULL if an error
 static t_node *atoi_strict_node(char *arg)
 {
 	int		idx;
@@ -140,6 +136,41 @@ static t_node *atoi_strict_node(char *arg)
 	return (new_node(num_value * sign));
 }
 
+/// @brief Parse a String, split it and commission atoi and cappend_unique.
+/// @param arg A string argument
+/// @param lst_a List A with the current values
+/// @return Error -1 
+static int	parse_number_arg(char *arg, t_node **lst_a, t_mode *mode)
+{
+	char	**parts;
+	int		idx;
+	t_node	*node;
+
+	parts = ft_split(arg, ' ');
+	idx = 0;
+	if (parts == NULL || parts[0] == NULL)
+	{
+		free_split(parts);
+		return (-1);
+	}
+	while (parts[idx] != NULL)
+	{
+		node = atoi_strict_node(parts[idx]);
+		if (node == NULL || append_unique(lst_a, node, mode) == -1)
+		{
+			free_split(parts);
+			free(node);
+			return (-1);
+		}
+		idx++;
+	}
+	return (0);
+}
+
+/// @brief Checks whether the passed argument is a configuration flag
+/// @param arg The argument to check
+/// @param mode The list for setting the mode 
+/// @return Is flag (1) or not (0), -1 if a invalid arguemnt is passed
 static int is_flag(char *arg, t_mode *mode)
 {
 	t_algo	parsed_algo;
@@ -169,10 +200,14 @@ static int is_flag(char *arg, t_mode *mode)
 	return (1);
 }
 
-static int parse_arguments(int argc, char **argv, t_mode *mode)
+/// @brief Start the check of every argument for flag or int number
+/// @param argc Number of passed arguments 
+/// @param argv List of the arguments
+/// @param mode The list for setting the mode 
+/// @return 0 if all arguements are valid, -1 if a invalid arg is in the list
+static int parse_arguments(int argc, char **argv, t_mode *mode, t_node **lst_a)
 {
 	int		idx;
-	t_node	*new_node;
 	int		ret_parse_arg;
 
 	idx = 1;
@@ -185,20 +220,19 @@ static int parse_arguments(int argc, char **argv, t_mode *mode)
 			idx++;
 		else
 		{
-			new_node = atoi_strict_node(argv[idx]);
-			if (new_node == NULL)
+			ret_parse_arg = parse_number_arg(argv[idx], lst_a, mode);
+			if (ret_parse_arg == -1)
 				return (-1);
 			idx++;
 		}
-
 	}
 	return (0);
 }
 
 int	main(int argc, char *argv[])
 {
-	// t_node	lst_a;
-	// t_node	lst_b;
+	t_node	*lst_a;
+	t_node	*lst_b;
 	t_mode	mode;
 	// t_node	a;
 	// t_node	b;
@@ -206,14 +240,22 @@ int	main(int argc, char *argv[])
 	// long	count_a;
 	// long	count_b;
 
+	printf("Test\n");
 	// TODO: Check for Arguments (0)
 	if (argc < 2)
 		return (0);
 
 	ft_bzero(&mode, sizeof(t_mode));
-	if (parse_arguments(argc, argv, &mode) == -1)
+	lst_a = NULL;
+	lst_b = NULL;
+	if (parse_arguments(argc, argv, &mode, &lst_a) == -1)
+	{
+		printf("-1\n");
 		return (0); // TODO: Error Ausgabe und free
+	}
 
-	printf("Mode: %i, bench: %i", mode.algo, mode.bench_active);
+	printf("Mode: %i, bench: %i, head_a: %p\n", mode.algo, mode.bench_active, mode.head_a);
+	printf("1: %i %p %p %p\n", lst_a->value, lst_a, lst_a->prev, lst_a->next);
+	printf("2: %i %p %p %p\n", lst_a->next->value, lst_a->next, lst_a->next->prev, lst_a->next->next);
 
 }

@@ -6,7 +6,7 @@
 /*   By: twalter <twalter@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/19 13:29:16 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/19 20:40:52 by twalter          ###   ########.fr       */
+/*   Updated: 2026/11/20 12:04:06 by twalter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ typedef struct s_mode
 	float	disorder;
 	t_algo	algo;
 	int		bench_active;
+	void	*head_a;
+	void	*head_b;
 }			t_mode;
 
 #endif
