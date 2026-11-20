@@ -6,7 +6,7 @@
 /*   By: twalter <twalter@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/19 13:29:16 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/20 13:56:47 by twalter          ###   ########.fr       */
+/*   Updated: 2026/11/20 14:01:47 by twalter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ typedef enum e_algo
 typedef struct s_node
 {
 	int				value;
-	struct s_node	*prev;
-	struct s_node	*next;
+	struct s_node	*top;
+	struct s_node	*bottom;
 }					t_node;
 
 /// @brief Struct for program mode and counter for bench mode

@@ -6,7 +6,7 @@
 /*   By: twalter <twalter@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/19 13:36:43 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/20 13:56:39 by twalter          ###   ########.fr       */
+/*   Updated: 2026/11/20 14:03:04 by twalter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,6 @@ int	main(int argc, char *argv[])
 	mode.disorder = compute_disorder(lst_a, mode);
 
 	printf("Mode: %i, bench: %i, head_a: %p, size: %lu, disorder: %f\n", mode.algo, mode.bench_active, mode.head_a, mode.size_a, mode.disorder);
-	printf("1: %i %p %p %p\n", lst_a->value, lst_a, lst_a->prev, lst_a->next);
-	printf("2: %i %p %p %p\n", lst_a->next->value, lst_a->next, lst_a->next->prev, lst_a->next->next);
+	printf("1: %i %p %p %p\n", lst_a->value, lst_a, lst_a->top, lst_a->bottom);
+	printf("2: %i %p %p %p\n", lst_a->bottom->value, lst_a->bottom, lst_a->bottom->top, lst_a->bottom->bottom);
 }

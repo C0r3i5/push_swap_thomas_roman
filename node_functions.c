@@ -6,7 +6,7 @@
 /*   By: twalter <twalter@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/20 13:23:14 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/20 14:00:12 by twalter          ###   ########.fr       */
+/*   Updated: 2026/11/20 14:02:50 by twalter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ t_node	*new_node(int value)
 	if (node == NULL)
 		return (NULL);
 	node->value = value;
-	node->next = node;
-	node->prev = node;
+	node->bottom = node;
+	node->top = node;
 	return (node);
 }
 
@@ -48,12 +48,12 @@ int	find_dub(t_node **lst, int value)
 
 	if (node_start->value == value)
 		return (1);
-	node_current = node_start->next;
+	node_current = node_start->bottom;
 	while (node_current != node_start)
 	{
 		if (value == node_current->value)
 			return (1);
-		node_current = node_current->next;
+		node_current = node_current->bottom;
 	}
 	return (0);
 }
@@ -70,8 +70,8 @@ int	append_unique(t_node **lst_a, t_node *node, t_mode *mode)
 	if (*lst_a == NULL)
 	{
 		mode->head_a = node;
-		node->next = node;
-		node->prev = node;
+		node->bottom = node;
+		node->top = node;
 		*lst_a = node;
 		mode->size_a = 1;
 		return (0);
@@ -80,11 +80,11 @@ int	append_unique(t_node **lst_a, t_node *node, t_mode *mode)
 	if (find_dub(lst_a, node->value) == 1)
 		return (-1);
 	
-	node_current_last = node_start->prev;
-	node_current_last->next = node;
-	node_start->prev = node;
-	node->prev = node_current_last;
-	node->next = node_start;
+	node_current_last = node_start->top;
+	node_current_last->bottom = node;
+	node_start->top = node;
+	node->top = node_current_last;
+	node->bottom = node_start;
 
 	mode->size_a += 1;
 	return (0);
@@ -108,19 +108,19 @@ double	compute_disorder(t_node *lst, t_mode mode)
 	total_pairs = 0;
 	idx = 0;
 	node_current_1 = mode.head_a;
-	while (node_current_1->next != mode.head_a || total_pairs == 0)
+	while (node_current_1->bottom != mode.head_a || total_pairs == 0)
 	{
 		node_current_2 = node_current_1;
-		while (node_current_2->next != mode.head_a || idx == 0)
+		while (node_current_2->bottom != mode.head_a || idx == 0)
 		{
 			total_pairs += 1;
-			if (node_current_1->value > node_current_2->next->value)
+			if (node_current_1->value > node_current_2->bottom->value)
 				mistakes++;
-			node_current_2 = node_current_2->next;
+			node_current_2 = node_current_2->bottom;
 			idx++;
 		}
 		idx = 0;
-		node_current_1 = node_current_1->next;
+		node_current_1 = node_current_1->bottom;
 	}
 	return((double)mistakes / total_pairs);
 }
