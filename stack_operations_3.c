@@ -6,11 +6,23 @@
 /*   By: twalter <twalter@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/20 15:49:16 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/20 16:07:51 by twalter          ###   ########.fr       */
+/*   Updated: 2026/11/20 19:13:42 by twalter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "push_swap.h"
+
+static void	rotate_r_stack(t_node **head, size_t *size)
+{
+	t_node	*current_head;
+
+	if (*size < 2)
+		return ;
+
+	current_head = *head;
+	*head = current_head->top;
+	heal_node_list(head, size);
+}
 
 /// @brief (reverse rotate a): Shift down all elements of stack a by one.
 /// The last element becomes the first one.
@@ -18,13 +30,7 @@
 /// @return success 0, fail -1
 int	rra(t_mode *mode)
 {
-	t_node	*current_head;
-
-	if (mode->size_a < 2)
-		return (0);
-
-	current_head = (t_node *)mode->head_a;
-	mode->head_a = current_head->top;
+	rotate_r_stack(&mode->head_a, &mode->size_a);
 }
 
 /// @brief (reverse rotate b): Shift down all elements of stack b by one.
@@ -33,13 +39,7 @@ int	rra(t_mode *mode)
 /// @return success 0, fail -1
 int	rrb(t_mode *mode)
 {
-	t_node	*current_head;
-
-	if (mode->size_b < 2)
-		return (0);
-
-	current_head = (t_node *)mode->head_b;
-	mode->head_b = current_head->top;
+	rotate_r_stack(&mode->head_b, &mode->size_b);
 }
 
 /// @brief rra and rrb at the same time
