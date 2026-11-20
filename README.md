@@ -12,6 +12,39 @@ This implementation supports four sorting strategies:
 
 An optional `--bench` flag outputs the computed disorder, selected strategy, complexity class, total operations, and per-operation counts to `stderr`.
 
+```mermaid
+flowchart TD
+	Start(["Start: main(argc, argv)"]) --> CheckArgc{"argc < 2?"}
+	CheckArgc -->|Yes| Exit0(["Exit (0)"])
+	CheckArgc -->|No| Parse["parse_arguments(argc, argv, &mode, &lst_a)"]
+
+	Parse -->|"Error (-1)"| PrintErr["Write 'Error\\n' to stderr"]
+	PrintErr --> FreeErr["free_stack(&head_a)"]
+	FreeErr --> Exit1(["Exit (1)"])
+
+	Parse -->|"OK (0)"| CheckSize{"size_a == 0?"}
+	CheckSize -->|Yes| Exit0
+	CheckSize -->|No| Disorder["compute_disorder(mode)"]
+
+	Disorder --> Resolve{"resolve_algo(&mode)"}
+	Resolve -->|"--simple or (adaptive & d < 0.2)"| Simple["used_algo = SIMPLE"]
+	Resolve -->|"--medium or (adaptive & 0.2 <= d < 0.5)"| Medium["used_algo = MEDIUM"]
+	Resolve -->|"--complex or (adaptive & d >= 0.5)"| Complex["used_algo = COMPLEX"]
+
+	Simple --> IsSorted{"disorder == 0.0 or size_a < 2?"}
+	Medium --> IsSorted
+	Complex --> IsSorted
+
+	IsSorted -->|Yes| BenchCheck{"bench_active == 1?"}
+	IsSorted -->|No| RunSort["Run selected sort & print ops to stdout"]
+	RunSort --> BenchCheck
+
+	BenchCheck -->|Yes| PrintBench["print_bench(mode) to stderr"]
+	BenchCheck -->|No| FreeAll["free_stack(A) & free_stack(B)"]
+	PrintBench --> FreeAll
+	FreeAll --> Exit0
+```
+
 ## Algorithm Explanation & Justification
 
 ### List
@@ -168,6 +201,7 @@ Specifically, AI assisted with:
 - Explaining C concepts and answering questions that remained unclear after discussing them with peers
 - Suggesting ideas for unit tests and edge-case testing
 - Translating and proofreading documentation (Doxygen comments and README) from German into English
+- Assist with the mermaid diagram in the README.md
 
 ## Used Resources:
 - Peers :)
