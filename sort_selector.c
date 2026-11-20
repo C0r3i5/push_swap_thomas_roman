@@ -6,7 +6,7 @@
 /*   By: twalter <twalter@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/20 20:48:12 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/20 22:00:43 by twalter          ###   ########.fr       */
+/*   Updated: 2026/11/20 22:55:00 by twalter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /// @brief Resolve the effective sorting algorithm based on flags and disorder
 /// @param mode Program configuration and operation counters
 /// @return The resolved algorithm (SIMPLE, MEDIUM, or COMPLEX)
-t_algo    resolve_algo(t_mode *mode)
+static t_algo    resolve_algo(t_mode *mode)
 {
 	if (mode->algo == NONE)
 		mode->algo = ADAPTIVE;
@@ -31,21 +31,6 @@ t_algo    resolve_algo(t_mode *mode)
 	else
 		mode->used_algo = COMPLEX;
 	return (mode->used_algo);
-}
-
-void	sort_simple(t_mode *mode)
-{
-
-}
-
-void	sort_medium(t_mode *mode)
-{
-
-}
-
-void	sort_complex(t_mode *mode)
-{
-
 }
 
 /// @brief Start the resolved sort algo

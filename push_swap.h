@@ -6,7 +6,7 @@
 /*   By: twalter <twalter@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/19 13:29:16 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/20 20:57:54 by twalter          ###   ########.fr       */
+/*   Updated: 2026/11/20 22:57:33 by twalter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,11 @@ void	pb(t_mode *mode);
 void	heal_node_list(t_node **head, size_t *size);
 
 void	print_bench(t_mode mode);
-t_algo	resolve_algo(t_mode *mode);
+
 void	start_sort(t_mode *mode);
+void	sort_simple(t_mode *mode);
+void	sort_medium(t_mode *mode);
+void	sort_complex(t_mode *mode);
+void	sort_adaptive(t_mode *mode);
 
 #endif
