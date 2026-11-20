@@ -6,7 +6,7 @@
 /*   By: twalter <twalter@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/20 13:19:35 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/20 19:32:39 by twalter          ###   ########.fr       */
+/*   Updated: 2026/11/20 20:01:14 by twalter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static t_node *atoi_strict_node(char *arg)
 		if (num_value * sign > INT_MAX || num_value * sign < INT_MIN)
 			return (NULL);
 	}
-	return (new_node(num_value * sign));
+	return (new_node((int)(num_value * sign)));
 }
 
 /// @brief Parse a String, split it and commission atoi and cappend_unique.
@@ -91,6 +91,7 @@ static int	parse_number_arg(char *arg, t_node **lst_a, t_mode *mode)
 		}
 		idx++;
 	}
+	free_split(parts);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 #    By: twalter <twalter@student.42heilbronn.de>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/11/19 13:24:31 by twalter           #+#    #+#              #
-#    Updated: 2026/11/20 19:31:17 by twalter          ###   ########.fr        #
+#    Updated: 2026/11/20 19:53:42 by twalter          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,9 @@ CC := cc
 
 RM := rm -f
 
-CFLAGS := -Wall -Wextra -Werror -I$(FT_PRINTF_PATH) 
+# CFLAGS := -Wall -Wextra -Werror -I$(FT_PRINTF_PATH) 
+
+CFLAGS := -Wall -Wextra -Werror -I$(FT_PRINTF_PATH) -fsanitize=address
 
 # CFLAGS := -I$(FT_PRINTF_PATH) -fsanitize=address
 
