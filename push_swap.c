@@ -6,7 +6,7 @@
 /*   By: twalter <twalter@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/19 13:36:43 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/20 12:03:46 by twalter          ###   ########.fr       */
+/*   Updated: 2026/11/20 12:38:21 by twalter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 /// @param parts List with items
 static void	free_split(char **parts)
 {
-	int	idx;
+	size_t	idx;
 
 	idx = 0;
 	if (parts == NULL)
@@ -90,6 +90,7 @@ static int	append_unique(t_node **lst_a, t_node *node, t_mode *mode)
 		node->next = node;
 		node->prev = node;
 		*lst_a = node;
+		mode->size_a = 1;
 		return (0);
 	}
 	node_start = (t_node *)mode->head_a;
@@ -101,6 +102,7 @@ static int	append_unique(t_node **lst_a, t_node *node, t_mode *mode)
 	node->prev = node_start;
 	node->next = node_current_first;
 	node_current_first->prev = node;
+	mode->size_a += 1;
 	return (0);
 }
 
@@ -109,7 +111,7 @@ static int	append_unique(t_node **lst_a, t_node *node, t_mode *mode)
 /// @return A new node element or NULL if an error
 static t_node *atoi_strict_node(char *arg)
 {
-	int		idx;
+	size_t	idx;
 	int		sign;
 	long	num_value;
 
@@ -143,7 +145,7 @@ static t_node *atoi_strict_node(char *arg)
 static int	parse_number_arg(char *arg, t_node **lst_a, t_mode *mode)
 {
 	char	**parts;
-	int		idx;
+	size_t	idx;
 	t_node	*node;
 
 	parts = ft_split(arg, ' ');
@@ -207,7 +209,7 @@ static int is_flag(char *arg, t_mode *mode)
 /// @return 0 if all arguements are valid, -1 if a invalid arg is in the list
 static int parse_arguments(int argc, char **argv, t_mode *mode, t_node **lst_a)
 {
-	int		idx;
+	size_t	idx;
 	int		ret_parse_arg;
 
 	idx = 1;
@@ -229,16 +231,41 @@ static int parse_arguments(int argc, char **argv, t_mode *mode, t_node **lst_a)
 	return (0);
 }
 
+static double	compute_disorder(t_node *lst, t_mode mode)
+{
+	size_t	mistakes;
+	size_t	total_pairs;
+	t_node *node_current_1;
+	t_node *node_current_2;
+	t_node *node_start;
+	
+	mistakes = 0;
+	total_pairs = 0;
+
+
+
+	node_current_1 = node_start->prev;
+	while (node_current_1 != node_start)
+	{
+		node_current_2 = node_start->prev->prev;
+		while (node_current_2 != node_start)
+		{
+			total_pairs += 1;
+			printf("%d > %d\n", node_current_1->value, node_current_2->value);
+			if (node_current_1->value > node_current_2->value)
+				mistakes += 1;
+			node_current_2 = node_current_2->prev;
+		}
+		node_current_1 = node_current_1->prev;
+	}
+	return((double)mistakes / total_pairs);
+}
+
 int	main(int argc, char *argv[])
 {
 	t_node	*lst_a;
 	t_node	*lst_b;
 	t_mode	mode;
-	// t_node	a;
-	// t_node	b;
-
-	// long	count_a;
-	// long	count_b;
 
 	printf("Test\n");
 	// TODO: Check for Arguments (0)
@@ -253,9 +280,9 @@ int	main(int argc, char *argv[])
 		printf("-1\n");
 		return (0); // TODO: Error Ausgabe und free
 	}
+	mode.disorder = compute_disorder(lst_a, mode);
 
-	printf("Mode: %i, bench: %i, head_a: %p\n", mode.algo, mode.bench_active, mode.head_a);
+	printf("Mode: %i, bench: %i, head_a: %p, size: %lu, disorder: %f\n", mode.algo, mode.bench_active, mode.head_a, mode.size_a, mode.disorder);
 	printf("1: %i %p %p %p\n", lst_a->value, lst_a, lst_a->prev, lst_a->next);
-	printf("2: %i %p %p %p\n", lst_a->next->value, lst_a->next, lst_a->next->prev, lst_a->next->next);
-
+	printf("2: %i %p %p %p\n", lst_a->prev->value, lst_a->prev, lst_a->prev->prev, lst_a->prev->next);
 }

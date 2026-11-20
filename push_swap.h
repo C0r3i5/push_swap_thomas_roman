@@ -6,7 +6,7 @@
 /*   By: twalter <twalter@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/19 13:29:16 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/20 12:04:06 by twalter          ###   ########.fr       */
+/*   Updated: 2026/11/20 12:30:34 by twalter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,12 @@ typedef struct s_mode
 	long	rra;
 	long	rrb;
 	long	rrr;
-	float	disorder;
+	double	disorder;
 	t_algo	algo;
 	int		bench_active;
 	void	*head_a;
 	void	*head_b;
+	long	size_a;
 }			t_mode;
 
 #endif
