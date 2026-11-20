@@ -6,7 +6,7 @@
 /*   By: twalter <twalter@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/20 15:20:39 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/20 18:58:31 by twalter          ###   ########.fr       */
+/*   Updated: 2026/11/20 19:28:00 by twalter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,29 +16,24 @@ static void	swap(t_node **head, size_t *size)
 {
 	t_node	*first_node;
 	t_node	*second_node;
-	t_node	*top_node;
-	t_node	*bottom_node;
 
 	if (*size < 2)
 		return ;
 
 	first_node = *head;
-	top_node = first_node->top;
 	second_node = first_node->bottom;
-	bottom_node = second_node->bottom;
 
-	first_node->top = second_node;
-	first_node->bottom = bottom_node;
-
-	second_node->top = top_node;
-	second_node->bottom = first_node;
-
-	top_node->bottom = second_node;
-	bottom_node->top = first_node;
-
-	first_node->position = 1;
+	if (*size > 2)
+	{
+		first_node->top->bottom = second_node;
+		second_node->bottom->top = first_node;
+		second_node->top = first_node->top;
+		first_node->bottom = second_node->bottom;
+		first_node->top = second_node;
+		second_node->bottom = first_node;
+	}
 	second_node->position = 0;
-
+	first_node->position = 1;
 	*head = second_node;
 }
 
