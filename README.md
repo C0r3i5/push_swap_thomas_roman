@@ -45,6 +45,52 @@ flowchart TD
 	FreeAll --> Exit0
 ```
 
+<details>
+	<summary>Details: Argument & Input Parsing (parse_arguments)</summary>
+
+```mermaid
+flowchart TD
+	Start(["parse_arguments(argc, argv, mode, lst_a)"]) --> Init["idx = 1"]
+	Init --> LoopArg{"idx < argc?"}
+	LoopArg -->|No| RetOK(["Return 0"])
+	LoopArg -->|Yes| IsFlag{"is_flag(argv[idx], mode)"}
+
+	IsFlag -->|"1 (valid flag)"| NextArg["idx++"]
+	IsFlag -->|"-1 (duplicate strategy flag)"| RetErr(["Return -1"])
+	IsFlag -->|"0 (number arg)"| Split["parts = ft_split(argv[idx], ' ')"]
+
+	Split --> EmptyCheck{"parts == NULL or parts[0] == NULL?"}
+	EmptyCheck -->|Yes| FreeSplitErr["free_split(parts)"] --> RetErr
+	EmptyCheck -->|No| PartLoop{"parts[j] != NULL?"}
+
+	PartLoop -->|No| FreeSplitOK["free_split(parts)"] --> NextArg
+	PartLoop -->|Yes| Atoi["node = atoi_strict_node(parts[j])"]
+
+	Atoi --> NodeNull{"node == NULL? (non-int / overflow)"}
+	NodeNull -->|Yes| FreeBoth["free_split(parts) & free(node)"] --> RetErr
+	NodeNull -->|No| Append{"append_unique(lst_a, node, mode)"}
+
+	Append -->|"-1 (duplicate value)"| FreeBoth
+	Append -->|"0 (added)"| NextPart["j++"] --> PartLoop
+
+	NextArg --> LoopArg
+```
+
+</details>
+
+<details>
+    <summary>Details: Simple, Medium & Complex Sorting Strategies</summary>
+
+```mermaid
+flowchart LR
+	Start(["start_sort(mode)"]) --> Dispatch{"mode.used_algo"}
+	Dispatch -->|SIMPLE| S["sort_simple(mode) - O(n^2)"]
+	Dispatch -->|MEDIUM| M["sort_medium(mode) - O(n*sqrt(n))"]
+	Dispatch -->|COMPLEX| C["sort_complex(mode) - O(n log n)"]
+```
+
+</details>
+
 ## Algorithm Explanation & Justification
 
 ### List
@@ -58,6 +104,9 @@ Both stacks (`A` and `B`) are implemented as **circular doubly-linked lists** (`
 **Why a circular doubly-linked list?**
 - **O(1) rotations:** `ra`/`rb` (`head = head->bottom`) and `rra`/`rrb` (`head = head->top`) only move the head pointer without traversing the list to find the tail.
 - **O(1) push and swap:** `pa`/`pb` and `sa`/`sb` only relink a fixed number of pointers at the head, avoiding array shifts.
+
+<details>
+    <summary>Details: Circular double-linked list (Diagram 1)</summary>
 
 ```mermaid
 classDiagram
@@ -100,25 +149,31 @@ classDiagram
 	Node3 --> Node1 : bottom
 
 ```
+
+</details>
+
+<details>
+    <summary>Details: Circular double-linked list (Diagram 2)</summary>
+
 ```mermaid
 flowchart TB
 	%% Pointer
 	HEAD([HEAD]) -->|point to| Node1
 
 	%% Node 3
-	subgraph Node3 [Knoten 3]
+	subgraph Node3 [Node 3]
 		direction TB
 		N3_P["top: Node 2"] ~~~ N3_I["position: 2"] ~~~ N3_V["value: 30"] ~~~ N3_N["bottom: Node 1"]
 	end
 
 	%% Node 2
-	subgraph Node2 [Knoten 2]
+	subgraph Node2 [Node 2]
 		direction TB
 		N2_P["top: Node 1"] ~~~ N2_I["position: 1"] ~~~ N2_V["value: 20"] ~~~ N2_N["bottom: Node 3"]
 	end
 
 	%% Node 1
-	subgraph Node1 [Knoten 1]
+	subgraph Node1 [Node 1]
 		direction TB
 		N1_P["top: Node 3"] ~~~ N1_I["position: 0"] ~~~ N1_V["value: 10"] ~~~	N1_N["bottom: Node 2"]
 	end
@@ -130,8 +185,9 @@ flowchart TB
 	Node1 -->|top| Node3
 	Node2 -->|top| Node1
 	Node3 -->|top| Node2
-
 ```
+
+</details>
 
 ### Adaptive Strategy
 
@@ -144,11 +200,11 @@ When `--adaptive` (or no strategy flag) is used, the program computes the initia
 
 ## Build
 
-To compile the programm use the provided makefile and the command
+To compile the program use the provided makefile and the command
 
 	make 
 
-This command compiles the program and create the push_swap binary.
+This command compiles the program and creates the push_swap binary.
 Same as 
 
 	make all
@@ -180,11 +236,11 @@ Run `push_swap` with a list of integers (as separate arguments or a single quote
 
 ### Strategy & Benchmark Flags
 
-	• --adaptive (default): Selects the strategy automatically based on the initial disorder.
-	• --simple: Forces the O(n²) algorithm.
-	• --medium: Forces the O(n√n) algorithm.
-	• --complex: Forces the O(n log n) algorithm.
-	• --bench: Prints disorder, selected strategy, total operation count, and individual operation counts to stderr.
+- --adaptive (default): Selects the strategy automatically based on the initial disorder.
+- --simple: Forces the O(n²) algorithm.
+- --medium: Forces the O(n√n) algorithm.
+- --complex: Forces the O(n log n) algorithm.
+- --bench: Prints disorder, selected strategy, total operation count, and individual operation counts to stderr.
 
 ```bash
 ./push_swap --medium 4 67 3 87 23
@@ -201,7 +257,7 @@ Specifically, AI assisted with:
 - Explaining C concepts and answering questions that remained unclear after discussing them with peers
 - Suggesting ideas for unit tests and edge-case testing
 - Translating and proofreading documentation (Doxygen comments and README) from German into English
-- Assist with the mermaid diagram in the README.md
+- Assisting with the Mermaid diagrams in README.md
 
 ## Used Resources:
 - Peers :)
