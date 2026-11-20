@@ -6,7 +6,7 @@
 /*   By: twalter <twalter@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/20 13:23:14 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/20 19:07:52 by twalter          ###   ########.fr       */
+/*   Updated: 2026/11/20 19:40:02 by twalter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,34 +94,30 @@ int	append_unique(t_node **lst_a, t_node *node, t_mode *mode)
 
 /// @brief Calculate a number between 0 and 1 that tells how far your initial
 /// stack a is from being sorted.
-/// @param lst List A with the current values
 /// @param mode The list for setting the mode 
 /// @return If the numbers are already in the right order, the disorder is 0. 
 /// If they are in the worst possible order, the disorder is 1.
-double	compute_disorder(t_node *lst, t_mode mode)
+double	compute_disorder(t_mode mode)
 {
 	size_t	mistakes;
 	size_t	total_pairs;
-	t_node *node_current_1;
-	t_node *node_current_2;
-	size_t	idx;
+	t_node 	*node_current_1;
+	t_node 	*node_current_2;
 	
+	if (mode.head_a == NULL || mode.size_a < 2) 
+		return (0.0);
 	mistakes = 0;
-	total_pairs = 0;
-	idx = 0;
+	total_pairs = mode.size_a * (mode.size_a - 1) / 2;
 	node_current_1 = mode.head_a;
-	while (node_current_1->bottom != mode.head_a || total_pairs == 0)
+	while (node_current_1->bottom != mode.head_a )
 	{
-		node_current_2 = node_current_1;
-		while (node_current_2->bottom != mode.head_a || idx == 0)
+		node_current_2 = node_current_1->bottom;
+		while (node_current_2 != mode.head_a)
 		{
-			total_pairs += 1;
-			if (node_current_1->value > node_current_2->bottom->value)
+			if (node_current_1->value > node_current_2->value)
 				mistakes++;
 			node_current_2 = node_current_2->bottom;
-			idx++;
 		}
-		idx = 0;
 		node_current_1 = node_current_1->bottom;
 	}
 	return((double)mistakes / total_pairs);
