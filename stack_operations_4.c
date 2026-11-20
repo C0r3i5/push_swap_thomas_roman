@@ -6,7 +6,7 @@
 /*   By: twalter <twalter@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/20 16:12:12 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/20 18:40:49 by twalter          ###   ########.fr       */
+/*   Updated: 2026/11/20 18:47:01 by twalter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,56 +37,29 @@ static t_node	*cut_headnode(t_node **head, size_t *size)
 	return (first_node);
 }
 
-void	add_headnode_a(t_mode *mode, t_node *new_node)
+static void	add_headnode(t_node **head, size_t *size, t_node *new_node)
 {
-	t_node *current_top;
-	t_node *current_first;
+	t_node	*first_node;
+	t_node	*top_node;
 
 	if (new_node == NULL)
 		return ;
-	if (mode->size_a == 0)
+	if (*size == 0)
 	{
 		new_node->top = new_node;
 		new_node->bottom = new_node;
 	}
 	else
 	{
-		current_first = (t_node *)mode->head_a;
-		current_top = current_first->top;
-		current_top->bottom = new_node;
-		current_first->top = new_node;
-		new_node->top = current_top;
-		new_node->bottom = current_first;
+		first_node = *head;
+		top_node = first_node->top;
+		top_node->bottom = new_node;
+		first_node->top = new_node;
+		new_node->top = top_node;
+		new_node->bottom = first_node;
 	}
-
-	mode->head_a = new_node;
-	mode->size_a += 1;
-}
-
-void	add_headnode_b(t_mode *mode, t_node *new_node)
-{
-	t_node *current_top;
-	t_node *current_first;
-	
-	if (new_node == NULL)
-		return ;
-	if (mode->size_b == 0)
-	{
-		new_node->top = new_node;
-		new_node->bottom = new_node;
-	}
-	else
-	{
-		current_first = (t_node *)mode->head_b;
-		current_top = current_first->top;
-		current_top->bottom = new_node;
-		current_first->top = new_node;
-		new_node->top = current_top;
-		new_node->bottom = current_first;
-	}
-
-	mode->head_b = new_node;
-	mode->size_b += 1;
+	*head = new_node;
+	*size += 1;
 }
 
 int	pa(t_mode *mode)
@@ -94,7 +67,10 @@ int	pa(t_mode *mode)
 	t_node	*node;
 
 	node = cut_headnode(&mode->head_b, &mode->size_b);
-	add_headnode_a(mode, node);
+	if (node == NULL)
+		return (0);
+	add_headnode(&mode->head_a, &mode->size_a, node);
+		return (0);
 }
 
 int	pb(t_mode *mode)
@@ -102,7 +78,10 @@ int	pb(t_mode *mode)
 	t_node	*node;
 
 	node = cut_headnode(&mode->head_a, &mode->size_a);
-	add_headnode_b(mode, node);
+	if (node == NULL)
+		return (0);
+	add_headnode(&mode->head_b, &mode->size_b, node);
+		return (0);
 }
 
 void	heal_node_list(t_mode *mode)
