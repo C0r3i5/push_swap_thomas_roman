@@ -6,7 +6,7 @@
 /*   By: twalter <twalter@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/20 13:23:14 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/20 15:13:44 by twalter          ###   ########.fr       */
+/*   Updated: 2026/11/20 19:07:52 by twalter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,4 +125,28 @@ double	compute_disorder(t_node *lst, t_mode mode)
 		node_current_1 = node_current_1->bottom;
 	}
 	return((double)mistakes / total_pairs);
+}
+
+void	heal_node_list(t_node **head, size_t *size)
+{
+	t_node *node_current;
+	t_node *node_head;
+	size_t	idx;
+
+	idx = 0;
+	if (*head == NULL)
+		return ;
+	node_head = *head;
+
+	node_head->position = idx;
+	idx++;
+
+	node_current = node_head->bottom;
+	while (node_current != node_head)
+	{
+		node_current->position = idx;
+		node_current = node_current->bottom;
+		idx++;
+	}
+	*size = idx;
 }

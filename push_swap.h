@@ -6,7 +6,7 @@
 /*   By: twalter <twalter@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/19 13:29:16 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/20 18:41:44 by twalter          ###   ########.fr       */
+/*   Updated: 2026/11/20 19:08:15 by twalter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,6 @@ int		rrr(t_mode *mode);
 int		pa(t_mode *mode);
 int		pb(t_mode *mode);
 
-void	heal_node_list(t_mode *mode);
+void	heal_node_list(t_node **head, size_t *size);
 
 #endif
