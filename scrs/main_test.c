@@ -1,14 +1,14 @@
-#include "ft_insertion_sort_stack.c"
+#include "ft_chunk_sort.c"
 #include <stdio.h>
 #include <stdlib.h>
 
 int	main(void)
 {
-	int		arr[] = {2, 8, 3, 42, 43, 10, 5, 99, 1};
+	int		arr[] = {2, 8, 3, 42, 43, 10, 5, 99, 1, 9542, 30, 70, 500, 22, 9994, -5};
 	t_stack	*a = NULL;
 	t_stack	*b = NULL;
 	t_stack	*new;
-	int		i = 9;
+	int		i = 16;
 
 	while (--i >= 0)
 	{
@@ -18,7 +18,7 @@ int	main(void)
 		a = new;
 	}
 	// ft_bubble_sort_stack(&a, &b, 5);
-	insertion_sort_stack(&a, &b, 9);
+	ft_chunk_sort(&a, &b, 15);
 	while (a && printf("%d ", a->value))
 		a = a->next;
 	printf("\n");

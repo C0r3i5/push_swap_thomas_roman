@@ -6,7 +6,7 @@
 /*   By: rulrich <rulrich@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/24 11:05:36 by rulrich           #+#    #+#             */
-/*   Updated: 2026/11/24 13:44:15 by rulrich          ###   ########.fr       */
+/*   Updated: 2026/11/24 13:53:47 by rulrich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,32 +17,31 @@
 
 void insertion_sort_stack(t_stack **a, t_stack **b, int size)
 {
-	int	count_array_loop1;
+	int count_array_loop1;
 
-	count_array_loop1 = -1;
-
-    while (++count_array_loop1 < size)
-    {
+	count_array_loop1 = 0;
+	while (*a != NULL && count_array_loop1 < size)
+	{
 		if ((*a)->next != NULL && (*a)->value < (*a)->next->value)
 		{
 			ra(a);
 		}
+		else if (*b == NULL || (*b)->value < (*a)->value)
+		{
+			pb(a, b);
+			count_array_loop1++;
+		}
+		else if ((*b)->next != NULL)
+		{
+			ra(b);
+		}
 		else
 		{
-			if (*b == NULL || (*b)->value < (*a)->value)
-				pb(a,b);
-			else
-			{
-				while ((*a)->value > (*b)->next->value)
-				{
-					ra(b);
-				}
-				pb(a,b);
-			}
+			ra(b);
 		}
+	}
 
-        // stack = stack->next;
-    }
+
 
 	// while(*a != NULL)
 

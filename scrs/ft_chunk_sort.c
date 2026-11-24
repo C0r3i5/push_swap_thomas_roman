@@ -1,0 +1,139 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_chunk_sort.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rulrich <rulrich@student.42heilbronn.de    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/11/24 13:54:57 by rulrich           #+#    #+#             */
+/*   Updated: 2026/11/24 15:49:22 by rulrich          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include <stdio.h>
+#include "ft_helper.c"
+
+
+static int ft_chunk_count(size_t size)
+{
+	int chunk_count;
+	int chunk_size;
+
+	chunk_count = 1;
+	while (chunk_count * chunk_count < size)
+		chunk_count++;
+
+	chunk_size = (size + chunk_count - 1) / chunk_count;
+
+	return (chunk_size);
+}
+
+
+int ft_find_max(t_stack *stack)
+{
+	int max_val;
+
+	if (stack == NULL)
+		return (0);
+
+	max_val = stack->value;
+	while (stack != NULL)
+	{
+		if (stack->value > max_val)
+			max_val = stack->value;
+		stack = stack->next;
+	}
+	return (max_val);
+}
+
+// int ft_find_min(t_stack *stack)
+// {
+// 	int min_val;
+
+// 	if (stack == NULL)
+// 		return (0);
+
+// 	min_val = stack->value;
+// 	while (stack != NULL)
+// 	{
+// 		if (stack->value < min_val)
+// 			min_val = stack->value;
+// 		stack = stack->next;
+// 	}
+// 	return (min_val);
+// }
+
+void normalize_stack(t_stack *stack, size_t max_chunc)
+{
+	t_stack *current;
+	t_stack *other;
+	int     rank;
+
+	current = stack;
+	while (current != NULL)
+	{
+		rank = 0;
+		other = stack;
+		while (other != NULL)
+		{
+			if (other->value < current->value)
+				rank++;
+			other = other->next;
+		}
+		current->hlp = rank / max_chunc;
+		current = current->next;
+	}
+}
+
+#include <stdio.h>
+
+void print_stack(t_stack *stack)
+{
+	while (stack != NULL)
+	{
+		printf("value: %d '\t' address: %p '\t rank: %d\n",
+			stack->value,
+			(void *)stack,
+			stack->hlp);
+		stack = stack->next;
+	}
+}
+
+
+#include <stddef.h> // Für size_t
+
+
+
+
+void	ft_chunk_sort(t_stack **a, t_stack **b, int size)
+{
+	int d;
+	int i;
+
+
+	d = ft_chunk_count(size);
+
+	normalize_stack(*a, d);
+
+	print_stack(*a);
+	d--;
+	while (d >= 0)
+	{
+		i = 0;
+		while (i < size)
+		{
+			if ((*a)->hlp == d && (*a)->next != NULL)
+			{
+				pb(a,b);
+
+			}
+			ra(a);
+			i++;
+		}
+		d--;
+	}
+
+	print_stack(*b);
+
+	(void)b;
+}

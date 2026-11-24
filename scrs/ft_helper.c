@@ -3,6 +3,7 @@ typedef struct s_stack
 {
     int             value; // Die eigentliche Zahl
     struct s_stack  *next; // Zeiger auf die Zahl darunter im Stapel
+	int	hlp;
 }   t_stack;
 
 
