@@ -13,7 +13,6 @@
 #include <stdio.h>
 #include "ft_helper.c"
 
-
 static int ft_chunk_count(size_t size)
 {
 	int chunk_count;
@@ -100,6 +99,55 @@ void print_stack(t_stack *stack)
 }
 
 
+
+
+size_t	find_insert_pos(t_stack *stack, int val, size_t size)
+{
+	t_stack	*cur;
+	t_stack	*next;
+	size_t	idx;
+	size_t	min_pos;
+
+	if (size < 2 || stack == NULL || stack->next == NULL)
+		return (0);
+	cur = stack;
+	idx = 0;
+	min_pos = 0;
+	while (idx < size && cur != NULL)
+	{
+		next = cur->next;
+		if (next == NULL)
+			next = stack;
+		if (cur->value < val && val < next->value)
+			return ((idx + 1) % size);
+		if (cur->value > next->value)
+			min_pos = (idx + 1) % size;
+		cur = cur->next;
+		idx++;
+	}
+	return (min_pos);
+}
+
+
+
+void	rotate_to_pos(t_stack **a, size_t pos, size_t size)
+{
+	size_t	steps;
+
+	if (pos <= size / 2)
+	{
+		while (pos-- > 0)
+			ra(a);
+		return ;
+	}
+	steps = size - pos;
+	while (steps-- > 0)
+		rra(a);
+}
+
+
+
+
 #include <stddef.h> // Für size_t
 
 
@@ -130,10 +178,15 @@ void	ft_chunk_sort(t_stack **a, t_stack **b, int size)
 			ra(a);
 			i++;
 		}
+		while ((*b) != NULL)
+		{
+			rotate_to_pos(a , find_insert_pos(*a,(*b)->value, size), size);
+			pa(a, b);
+		}
 		d--;
 	}
 
-	print_stack(*b);
+	print_stack(*a);
 
 	(void)b;
 }

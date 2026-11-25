@@ -97,3 +97,20 @@ void	pa(t_stack **a, t_stack **b)
 	*a = tmp;
 	printf("pa\n");
 }
+
+void	rra(t_stack **a)
+{
+	t_stack	*last;
+	t_stack	*before_last;
+
+	if (a == NULL || *a == NULL || (*a)->next == NULL)
+		return ;
+	before_last = *a;
+	while (before_last->next->next != NULL)
+		before_last = before_last->next;
+	last = before_last->next;
+	before_last->next = NULL;
+	last->next = *a;
+	*a = last;
+	write(1, "rra\n", 4);
+}
