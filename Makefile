@@ -6,7 +6,7 @@
 #    By: rulrich <rulrich@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/11/19 13:24:31 by twalter           #+#    #+#              #
-#    Updated: 2026/11/26 09:18:21 by rulrich          ###   ########.fr        #
+#    Updated: 2026/11/26 13:00:24 by rulrich          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,8 @@ CFLAGS := -I$(FT_PRINTF_PATH) -fsanitize=address
 SOURCES := push_swap.c arguments.c node_functions.c stack_operations_1.c \
 			stack_operations_2.c stack_operations_3.c stack_operations_4.c \
 			bench.c sort_selector.c sort_run_simple.c sort_run_medium.c \
-			sort_run_complex.c sort_run_adaptive.c stack_operations_utils.c
+			sort_run_complex.c sort_run_adaptive.c stack_operations_utils.c \
+			ft_print_outs.c
 
 OBJECTS := $(SOURCES:.c=.o)
 
