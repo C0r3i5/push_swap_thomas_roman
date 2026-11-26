@@ -6,22 +6,20 @@
 /*   By: twalter <twalter@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/19 13:36:43 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/26 12:45:06 by twalter          ###   ########.fr       */
+/*   Updated: 2026/11/26 14:44:48 by twalter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "push_swap.h"
-
-#include <stdio.h>
+#include "push_swap.h"
 
 /// @brief Free all nodes in the circular list and reset head and size.
 /// @param head Pointer to the head node of the circular list
 /// @param size Pointer to the stack size counter to update
-static void free_stack(t_node **head, size_t *size)
+static void	free_stack(t_node **head, size_t *size)
 {
-	t_node *node_current;
-	t_node *node_head;
-	t_node *node_next;
+	t_node	*node_current;
+	t_node	*node_head;
+	t_node	*node_next;
 
 	if (head == NULL || *head == NULL)
 		return ;
@@ -39,47 +37,13 @@ static void free_stack(t_node **head, size_t *size)
 		*size = 0;
 }
 
-
-void ft_debug_print_mode_list(t_mode *mode)
-{
-    t_node *node;
-    size_t i;
-
-    if (mode == NULL)
-        return;
-
-    printf("Mode: %i, bench: %i, head_a: %p, size: %lu, disorder: %f\n",
-        mode->algo,
-        mode->bench_active,
-        (void *)mode->head_a,
-        mode->size_a,
-        mode->disorder);
-
-    node = (t_node *)mode->head_a;
-    i = 0;
-    while (node != NULL && i < mode->size_a)
-    {
-        printf("%lu: %i %p %p %p\n",
-            node->position,
-            node->value,
-            (void *)node,
-            (void *)node->top,
-            (void *)node->bottom);
-        node = node->bottom;
-        i++;
-    }
-}
-
-
 int	main(int argc, char *argv[])
 {
 	t_node	*lst_a;
 	t_mode	mode;
-	t_node  *node;
 
 	if (argc < 2)
 		return (0);
-
 	ft_bzero(&mode, sizeof(t_mode));
 	lst_a = NULL;
 	if (parse_arguments(argc, argv, &mode, &lst_a) == -1)
@@ -90,7 +54,6 @@ int	main(int argc, char *argv[])
 	}
 	if (mode.size_a == 0)
 		return (0);
-
 	start_sort(&mode);
 	print_bench(mode);
 	free_stack(&mode.head_a, &mode.size_a);
