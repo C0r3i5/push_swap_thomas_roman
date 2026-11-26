@@ -6,17 +6,17 @@
 /*   By: twalter <twalter@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/20 20:20:46 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/20 21:38:54 by twalter          ###   ########.fr       */
+/*   Updated: 2026/11/26 13:16:33 by twalter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "push_swap.h"
+#include "push_swap.h"
 
 /// @brief Print the computed disorder percentage (two decimals) to stderr
 /// @param disorder Disorder ratio between 0.0 and 1.0
 static void	print_disorder(double disorder)
 {
-	size_t disorder_percent;
+	size_t	disorder_percent;
 
 	disorder_percent = (size_t)(disorder * 10000.0 + 0.5);
 	ft_putstr_fd("[bench] disorder: ", 2);
@@ -30,7 +30,7 @@ static void	print_disorder(double disorder)
 
 /// @brief Print the complexity class to stderr.
 /// @param algo Selected sort algo category
-static void    print_complexity(t_algo algo)
+static void	print_complexity(t_algo algo)
 {
 	if (algo == SIMPLE)
 		ft_putstr_fd("O(n^2)\n", 2);
@@ -42,7 +42,7 @@ static void    print_complexity(t_algo algo)
 
 /// @brief Print the selected sort strategy and complexity class to stderr.
 /// @param mode Program configuration and operation counters
-static void    print_strategy(t_mode mode)
+static void	print_strategy(t_mode mode)
 {
 	ft_putstr_fd("[bench] strategy: ", 2);
 	if (mode.algo == SIMPLE)
@@ -63,7 +63,7 @@ static void    print_strategy(t_mode mode)
 /// @brief Print a combination of name and (int) counter to stderr.
 /// @param name Printed name of the operation
 /// @param count Counted use of the operation
-static void    print_operators(char *name, size_t count)
+static void	print_operators(char *name, size_t count)
 {
 	ft_putstr_fd(name, 2);
 	ft_putnbr_fd((int)count, 2);
@@ -71,9 +71,9 @@ static void    print_operators(char *name, size_t count)
 
 /// @brief Print bench information to stderr if bench mode is active
 /// @param mode Program configuration and operation counters
-void    print_bench(t_mode mode)
+void	print_bench(t_mode mode)
 {
-	size_t    total;
+	size_t	total;
 
 	if (!mode.bench_active)
 		return ;
