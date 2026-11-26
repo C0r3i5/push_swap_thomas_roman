@@ -6,7 +6,7 @@
 /*   By: rulrich <rulrich@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/19 13:36:43 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/26 13:05:22 by rulrich          ###   ########.fr       */
+/*   Updated: 2026/11/26 13:43:42 by rulrich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,9 @@ int	main(int argc, char *argv[])
 	start_sort(&mode);
 
 	// ft_debug_print_mode_list(&mode);
+
 	// sort_medium(&mode);
+
 
 
 

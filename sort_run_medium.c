@@ -6,133 +6,110 @@
 /*   By: rulrich <rulrich@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/20 22:52:23 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/26 14:05:33 by rulrich          ###   ########.fr       */
+/*   Updated: 2026/11/26 14:20:07 by rulrich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-#include "push_swap.h"
+/**
+ * @brief Calculates the optimal chunk size based on the total element count.
+ *
+ * Splits the total size into a fixed number of chunks (5 chunks for up to
+ * 100 elements, otherwise 11 chunks) and returns the rounded-up size of a
+ * single chunk.
+ *
+ * @param size The total number of elements to process.
+ * @return int The calculated number of elements per chunk.
+ */
+static int	ft_chunk_count(size_t size)
+{
+	int	chunk_count;
+	int	chunk_size;
 
-static void	normalize_stack(t_node *stack, int size)
+	if (size <= 100)
+		chunk_count = 5;
+	else
+		chunk_count = 11;
+	chunk_size = (size + chunk_count - 1) / chunk_count;
+	return (chunk_size);
+}
+
+/**
+ * @brief Assigns a chunk index to each node based on its relative value rank.
+ *
+ * Iterates through the stack to determine each element's sorted rank by
+ * counting smaller values, then divides the rank by max_chunc and stores the
+ * resulting chunk group in node->helper.
+ *
+ * @param stack Pointer to the top node of the stack.
+ * @param size Total number of elements in the stack.
+ * @param max_chunc Size of a single chunk used to group ranks.
+ */
+static void	normalize_stack(t_node *stack, int size, size_t max_chunc)
 {
 	t_node	*current;
 	t_node	*other;
 	int		rank;
-	int		i;
 	int		j;
 
+	if (!stack || size <= 0 || max_chunc == 0)
+		return ;
 	current = stack;
-	i = 0;
-	while (i < size)
+	while (size-- > 0)
 	{
 		rank = 0;
 		other = stack;
-		j = 0;
-		while (j < size)
+		j = -1;
+		while (other && ++j < size + 1)
 		{
 			if (other->value < current->value)
 				rank++;
 			other = other->bottom;
-			j++;
 		}
-		current->helper = rank;
+		current->helper = rank / max_chunc;
 		current = current->bottom;
-		i++;
 	}
 }
 
-static size_t	find_second_max_pos_b(t_mode *mode, size_t max_pos)
-{
-	t_node	*cur;
-	size_t	idx;
-	size_t	sec_pos;
-	int		sec_val;
-
-	cur = mode->head_b;
-	sec_val = -2147483648;
-	sec_pos = 0;
-	idx = 0;
-	while (idx < mode->size_b)
-	{
-		if (idx != max_pos && cur->value >= sec_val)
-		{
-			sec_val = cur->value;
-			sec_pos = idx;
-		}
-		cur = cur->bottom;
-		idx++;
-	}
-	return (sec_pos);
-}
-
-static void	push_all_to_b(t_mode *mode, int range)
+static void	push_chunks_to_b(t_mode *mode, int d)
 {
 	int	i;
+	int	cur_size;
 
-	i = 0;
-	while (mode->size_a > 0)
+	while (d >= 0)
 	{
-		if (mode->head_a->helper <= i)
+		i = 0;
+		cur_size = mode->size_a;
+		while (i < cur_size)
 		{
-			pb(mode);
-			rb(mode);
+			if (mode->head_a != NULL && mode->head_a->helper == d)
+				pb(mode);
+			else
+				ra(mode);
 			i++;
 		}
-		else if (mode->head_a->helper <= i + range)
-		{
-			pb(mode);
-			i++;
-		}
-		else
-			ra(mode);
-	}
-}
-
-static void	push_back_to_a(t_mode *mode)
-{
-	size_t	max_pos;
-	size_t	sec_pos;
-	size_t	cost_max;
-	size_t	cost_sec;
-
-	while (mode->head_b != NULL)
-	{
-		max_pos = find_max_pos_b(mode);
-		sec_pos = find_second_max_pos_b(mode, max_pos);
-		cost_max = max_pos;
-		if (max_pos > mode->size_b / 2)
-			cost_max = mode->size_b - max_pos;
-		cost_sec = sec_pos;
-		if (sec_pos > mode->size_b / 2)
-			cost_sec = mode->size_b - sec_pos;
-		if (mode->size_b > 1 && cost_sec < cost_max)
-		{
-			rotate_b_to_pos(mode, sec_pos);
-			pa(mode);
-			rotate_b_to_pos(mode, find_max_pos_b(mode));
-			pa(mode);
-			sa(mode);
-			continue ;
-		}
-		rotate_b_to_pos(mode, max_pos);
-		pa(mode);
+		d--;
 	}
 }
 
 void	sort_medium(t_mode *mode)
 {
+	int	chunk;
 	int	size;
-	int	range;
+	int	d;
 
 	size = mode->size_a;
 	if (size <= 1)
 		return ;
-	normalize_stack(mode->head_a, size);
-	range = 15;
-	if (size > 100)
-		range = 32;
-	push_all_to_b(mode, range);
-	push_back_to_a(mode);
+	chunk = ft_chunk_count(size);
+	normalize_stack(mode->head_a, size, chunk);
+	d = ((size + chunk - 1) / chunk) - 1;
+	push_chunks_to_b(mode, d);
+	while (mode->head_b != NULL)
+	{
+		rotate_b_to_pos(mode, find_max_pos_b(mode));
+		pa(mode);
+	}
 }
 

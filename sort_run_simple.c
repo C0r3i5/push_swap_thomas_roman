@@ -6,7 +6,7 @@
 /*   By: rulrich <rulrich@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/20 22:51:46 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/24 10:57:53 by rulrich          ###   ########.fr       */
+/*   Updated: 2026/11/26 13:23:53 by rulrich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ void	sort_simple(t_mode *mode)
 	int	count_array_loop2;
 	int	swapped;
 
-	(void)mode->head_b;
+	// print_stack(mode);
+
 	count_array_loop1 = -1;
 	while (++count_array_loop1 < mode->size_a - 1)
 	{
@@ -34,6 +35,9 @@ void	sort_simple(t_mode *mode)
 			ra(mode);
 		}
 		ra(mode);
+
+		// print_stack(mode);
+
 		if (!swapped)
 			break ;
 	}
