@@ -6,7 +6,7 @@
 /*   By: rulrich <rulrich@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/20 22:52:23 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/26 11:08:04 by rulrich          ###   ########.fr       */
+/*   Updated: 2026/11/26 12:24:25 by rulrich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,54 +148,6 @@ static void	normalize_stack(t_node *stack, int size, size_t max_chunc)
 	}
 }
 
-static size_t	find_max_pos_b(t_mode *mode)
-{
-	t_node	*cur;
-	size_t	idx;
-	size_t	max_pos;
-	int		max_value;
-
-	cur = mode->head_b;
-	max_value = cur->value;
-	max_pos = 0;
-	idx = 0;
-	while (idx < mode->size_b)
-	{
-		if (cur->value > max_value)
-		{
-			max_value = cur->value;
-			max_pos = idx;
-		}
-		cur = cur->bottom;
-		idx++;
-	}
-	return (max_pos);
-}
-
-
-static void	rotate_b_to_pos(t_mode *mode, size_t pos)
-{
-	size_t	steps;
-
-	if (mode->size_b == 0 || pos >= mode->size_b)
-		return ;
-	if (pos <= mode->size_b / 2)
-	{
-		while (pos > 0)
-		{
-			rb(mode);
-			pos--;
-		}
-		return ;
-	}
-	steps = mode->size_b - pos;
-	while (steps > 0)
-	{
-		rrb(mode);
-		steps--;
-	}
-}
-
 
 
 void	sort_medium(t_mode *mode)
@@ -212,13 +164,13 @@ void	sort_medium(t_mode *mode)
 	if (size <= 1)
 		return ;
 	chunk = ft_chunk_count(size);
-	ft_printf("[DBG] nach normalize:\n");
-	print_stack(mode);
+	// ft_printf("[DBG] nach normalize:\n");
+	// print_stack(mode);
 	buckets = (size + chunk - 1) / chunk;
 	normalize_stack(mode->head_a, size, chunk);
 
-	ft_printf("[DBG] nach normalize:\n");
-	print_stack(mode);
+	// ft_printf("[DBG] nach normalize:\n");
+	// print_stack(mode);
 	// ft_printf("[DBG] vor BUCKET\n");
 
 	// t_node	*n;
@@ -248,19 +200,19 @@ void	sort_medium(t_mode *mode)
 				ra(mode);
 			i++;
 		}
-		ft_printf("[DBG] vor Sortierung \n");
-		print_stack(mode);
+		// ft_printf("[DBG] vor Sortierung \n");
+		// print_stack(mode);
 		while (mode->head_b != NULL)
 		{
 			rotate_b_to_pos(mode, find_max_pos_b(mode));
 			pa(mode);
 		}
-		ft_printf("[DBG] nach Sortierung \n");
-		print_stack(mode);
+		// ft_printf("[DBG] nach Sortierung \n");
+		// print_stack(mode);
 		d--;
 	}
 	(void)mode->head_b;
-	ft_printf(" ------- \t DONE \t   ------- \n");
+	// ft_printf(" ------- \t DONE \t   ------- \n");
 }
 
 

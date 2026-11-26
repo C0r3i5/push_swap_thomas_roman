@@ -6,7 +6,7 @@
 /*   By: rulrich <rulrich@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/19 13:29:16 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/26 09:20:38 by rulrich          ###   ########.fr       */
+/*   Updated: 2026/11/26 12:28:38 by rulrich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,5 +129,27 @@ void	sort_adaptive(t_mode *mode);
 
 void rotate_to_pos(t_mode *mode, size_t pos);
 size_t find_insert_pos(t_mode *mode, int val);
+
+/**
+ * find_max_pos_b - Finds the index of the maximum value in stack B.
+ * @mode: Program state containing stack B and its size.
+ *
+ * Return: Zero-based index of the maximum-value node in stack B.
+ *         Requires stack B to be non-empty.
+ */
+size_t	find_max_pos_b(t_mode *mode);
+
+/**
+ * @brief Rotates stack B to bring the element at the given index to the top.
+ *
+ * Calculates the shortest rotation path based on the stack size. If the target
+ * position is in the upper half (or middle), it rotates upwards using `rb`.
+ * Otherwise, it rotates downwards using `rrb`. Does nothing if stack B is empty
+ * or if the target position is out of bounds.
+ *
+ * @param mode Pointer to the main structure containing stack B and its size.
+ * @param pos  The 0-based index of the target element in stack B.
+ */
+void	rotate_b_to_pos(t_mode *mode, size_t pos)
 
 #endif
