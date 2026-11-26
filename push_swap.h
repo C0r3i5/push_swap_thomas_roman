@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rulrich <rulrich@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: twalter <twalter@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/19 13:29:16 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/26 12:41:15 by rulrich          ###   ########.fr       */
+/*   Updated: 2026/11/26 12:49:43 by twalter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,6 @@ size_t	find_max_pos_b(t_mode *mode);
  * @param mode Pointer to the main structure containing stack B and its size.
  * @param pos  The 0-based index of the target element in stack B.
  */
-void	rotate_b_to_pos(t_mode *mode, size_t pos)
+void	rotate_b_to_pos(t_mode *mode, size_t pos);
 
 #endif
