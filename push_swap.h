@@ -6,7 +6,7 @@
 /*   By: rulrich <rulrich@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/19 13:29:16 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/26 08:48:19 by rulrich          ###   ########.fr       */
+/*   Updated: 2026/11/26 08:55:36 by rulrich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct s_node
 	struct s_node	*bottom;
 	/** Index of this node's position within its stack. */
 	size_t			position;
+	int				helper;
 }					t_node;
 
 /**
