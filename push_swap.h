@@ -6,7 +6,7 @@
 /*   By: rulrich <rulrich@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/19 13:29:16 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/26 08:55:36 by rulrich          ###   ########.fr       */
+/*   Updated: 2026/11/26 09:20:38 by rulrich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,5 +126,8 @@ void	sort_simple(t_mode *mode);
 void	sort_medium(t_mode *mode);
 void	sort_complex(t_mode *mode);
 void	sort_adaptive(t_mode *mode);
+
+void rotate_to_pos(t_mode *mode, size_t pos);
+size_t find_insert_pos(t_mode *mode, int val);
 
 #endif
