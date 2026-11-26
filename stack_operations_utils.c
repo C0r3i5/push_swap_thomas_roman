@@ -6,7 +6,7 @@
 /*   By: twalter <twalter@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/24 14:36:27 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/24 14:37:37 by twalter          ###   ########.fr       */
+/*   Updated: 2026/11/26 12:08:08 by twalter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,30 @@ size_t	find_insert_pos(t_mode *mode, int val)
 		idx++;
 	}
 	return (pos);
+}
+
+void	calculate_rank(t_mode *mode)
+{
+	t_node	*cur;
+	t_node	*cmp;
+	size_t	idx_out;
+	size_t	idx_in;
+
+	idx_out = 0;
+	cur = mode->head_a;
+	while (idx_out < mode->size_a)
+	{
+		idx_in = 0;
+		cur->helper = 0;
+		cmp = mode->head_a;
+		while (idx_in < mode->size_a)
+		{
+			if (cur->value > cmp->value)
+				cur->helper++;
+			cmp = cmp->bottom;
+			idx_in++;
+		}
+		cur = cur->bottom;
+		idx_out++;
+	}
 }

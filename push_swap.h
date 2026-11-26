@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rulrich <rulrich@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: twalter <twalter@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/19 13:29:16 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/26 09:20:38 by rulrich          ###   ########.fr       */
+/*   Updated: 2026/11/26 12:22:29 by twalter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct s_node
 	/** Index of this node's position within its stack. */
 	size_t			position;
 	int				helper;
+
 }					t_node;
 
 /**
@@ -129,5 +130,6 @@ void	sort_adaptive(t_mode *mode);
 
 void rotate_to_pos(t_mode *mode, size_t pos);
 size_t find_insert_pos(t_mode *mode, int val);
+void	calculate_rank(t_mode *mode);
 
 #endif
