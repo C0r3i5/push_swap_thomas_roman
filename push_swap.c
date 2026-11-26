@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rulrich <rulrich@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: twalter <twalter@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/19 13:36:43 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/26 09:33:29 by rulrich          ###   ########.fr       */
+/*   Updated: 2026/11/26 12:45:06 by twalter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,39 +91,7 @@ int	main(int argc, char *argv[])
 	if (mode.size_a == 0)
 		return (0);
 
-	// start_sort(&mode);
-
-	ft_debug_print_mode_list(&mode);
-	sort_medium(&mode);
-
-
-
-	// node = (t_node *)mode.head_a;
-	// printf("Mode: %i, bench: %i, head_a: %p, size: %lu, disorder: %f\n", mode.algo, mode.bench_active, mode.head_a, mode.size_a, mode.disorder);
-	// printf("%lu: %i %p %p %p\n", node->position, node->value, node, node->top, node->bottom);
-	// printf("%lu: %i %p %p %p\n", node->bottom->position, node->bottom->value, node->bottom, node->bottom->top, node->bottom->bottom);
-	// printf("%lu: %i %p %p %p\n", node->bottom->bottom->position, node->bottom->bottom->value, node->bottom->bottom, node->bottom->bottom->top, node->bottom->bottom->bottom);
-
-	// ra(&mode);
-	// heal_node_list(&mode.head_a, &mode.size_a);
-
-	// node = (t_node *)mode.head_a;
-	// printf("Mode: %i, bench: %i, head_a: %p, size: %lu, disorder: %f\n", mode.algo, mode.bench_active, mode.head_a, mode.size_a, mode.disorder);
-	// printf("%lu: %i %p %p %p\n", node->position, node->value, node, node->top, node->bottom);
-	// printf("%lu: %i %p %p %p\n", node->bottom->position, node->bottom->value, node->bottom, node->bottom->top, node->bottom->bottom);
-	// printf("%lu: %i %p %p %p\n", node->bottom->bottom->position, node->bottom->bottom->value, node->bottom->bottom, node->bottom->bottom->top, node->bottom->bottom->bottom);
-
-	// ra(&mode);
-	// heal_node_list(&mode.head_a, &mode.size_a);
-
-	// node = (t_node *)mode.head_a;
-	// printf("Mode: %i, bench: %i, head_a: %p, size: %lu, disorder: %f\n", mode.algo, mode.bench_active, mode.head_a, mode.size_a, mode.disorder);
-	// printf("%lu: %i %p %p %p\n", node->position, node->value, node, node->top, node->bottom);
-	// printf("%lu: %i %p %p %p\n", node->bottom->position, node->bottom->value, node->bottom, node->bottom->top, node->bottom->bottom);
-	// printf("%lu: %i %p %p %p\n", node->bottom->bottom->position, node->bottom->bottom->value, node->bottom->bottom, node->bottom->bottom->top, node->bottom->bottom->bottom);
-
-
-
+	start_sort(&mode);
 	print_bench(mode);
 	free_stack(&mode.head_a, &mode.size_a);
 	free_stack(&mode.head_b, &mode.size_b);
