@@ -6,26 +6,44 @@
 /*   By: rulrich <rulrich@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/20 22:52:23 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/26 09:10:28 by rulrich          ###   ########.fr       */
+/*   Updated: 2026/11/26 09:54:34 by rulrich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
 /// loeschen
-void print_stack(t_node *stack)
+static void	print_ring(t_node *head, int size, char *name)
 {
-	while (stack != NULL)
+	t_node	*current;
+	int		i;
+
+	ft_printf("%s (size: %d)\n", name, size);
+	if (head == NULL || size <= 0)
 	{
-		printf("value: %d '\t' address: %p '\t rank: %d\n",
-			stack->value,
-			(void *)stack,
-			stack->helper);
-		stack = stack->bottom;
+		ft_printf("  (leer)\n");
+		return ;
+	}
+	current = head;
+	i = 0;
+	while (i < size)
+	{
+		ft_printf("  %d: value: %d\taddress: %p\trank: %d\n",
+			i, current->value, (void *)current, current->helper);
+		current = current->bottom;
+		i++;
 	}
 }
-///////////////
 
+void	print_stack(t_mode *mode)
+{
+	ft_printf("--- Stack-Zustand ---\n");
+	print_ring(mode->head_a, mode->size_a, "head_a");
+	print_ring(mode->head_b, mode->size_b, "head_b");
+	ft_printf("---------------------\n");
+}
+
+///////////////
 
 
 
@@ -43,28 +61,35 @@ static int ft_chunk_count(size_t size)
 	return (chunk_size);
 }
 
-static void normalize_stack(t_node *stack, size_t max_chunc)
+static void	normalize_stack(t_node *stack, int size, size_t max_chunc)
 {
-	t_node *current;
-	t_node *other;
-	int     rank;
+	t_node	*current;
+	t_node	*other;
+	int		rank;
+	int		i;
+	int		j;
 
+	if (!stack || size <= 0 || max_chunc == 0)
+		return ;
 	current = stack;
-	while (current != NULL)
+	i = 0;
+	while (i < size)
 	{
 		rank = 0;
 		other = stack;
-		while (other != NULL)
+		j = 0;
+		while (j < size)
 		{
 			if (other->value < current->value)
 				rank++;
 			other = other->bottom;
+			j++;
 		}
 		current->helper = rank / max_chunc;
 		current = current->bottom;
+		i++;
 	}
 }
-
 
 
 
@@ -72,39 +97,105 @@ static void normalize_stack(t_node *stack, size_t max_chunc)
 
 void	sort_medium(t_mode *mode)
 {
-	int d;
-	int i;
+	int	chunk;
+	int	buckets;
+	int	size;
+	int	d;
+	int	i;
 
+	size = mode->size_a;
+	ft_printf("[DBG] nach normalize:\n");
+	print_stack(mode);
+	if (size <= 1)
+		return ;
+	chunk = ft_chunk_count(size);
+	ft_printf("[DBG] nach normalize:\n");
+	print_stack(mode);
+	buckets = (size + chunk - 1) / chunk;
+	normalize_stack(mode->head_a, size, chunk);
 
-	d = ft_chunk_count(mode->size_a);
+	ft_printf("[DBG] nach normalize:\n");
+	print_stack(mode);
+	ft_printf("[DBG] vor BUCKET\n");
 
-	normalize_stack((mode->head_a, d);
+	// t_node	*n;
+	// int		i;
 
-	print_stack(mode->head_a);
-	d--;
+	// n = mode->head_a;
+	// i = 0;
+	// while (i < mode->size_a)
+	// {
+	// 	n->helper = n->helper / chunk;
+	// 	n = n->bottom;
+	// 	i++;
+	// }
+	ft_printf("[DBG] nach BUCKET\n");
+
+	print_stack(mode);
+
+	d = buckets - 1;
 	while (d >= 0)
 	{
 		i = 0;
-		while (i < mode->size_a)
+		while (i < size)
 		{
-			if (mode->head_a->helper == d && mode->head_a->bottom != NULL)
+			if (mode->head_a != NULL && mode->head_a->helper == d)
 				pb(mode);
-			ra(mode);
+			else
+				ra(mode);
 			i++;
 		}
 		while (mode->head_b != NULL)
 		{
-			rotate_to_pos(mode, find_insert_pos(mode,(*b)->value));
+			rotate_to_pos(mode, find_insert_pos(mode, mode->head_b->value));
 			pa(mode);
+			ft_printf("[DBG] vor Sortierung \n");
+			print_stack(mode);
+			ft_printf("[DBG] nach Sortierung \n");
 		}
 		d--;
 	}
-
-	print_stack(mode->head_a);
-
 	(void)mode->head_b;
-
+	ft_printf(" ------- \t DONE \t   ------- \n");
 }
+
+
+
+// void	sort_medium(t_mode *mode)
+// {
+// 	int d;
+// 	int i;
+
+
+// 	d = ft_chunk_count(mode->size_a);
+
+// 	normalize_stack(mode->head_a, d);
+
+// 	print_stack(mode->head_a);
+// 	d--;
+// 	while (d >= 0)
+// 	{
+// 		i = 0;
+// 		while (i < mode->size_a)
+// 		{
+// 			if (mode->head_a->helper == d && mode->head_a->bottom != NULL)
+// 				pb(mode);
+// 			ra(mode);
+// 			i++;
+// 		}
+// 		while (mode->head_b != NULL)
+// 		{
+// 			rotate_to_pos(mode, find_insert_pos(mode,mode->head_b->value));
+// 			pa(mode);
+// 		}
+// 		d--;
+// 	}
+
+// 	print_stack(mode->head_a);
+
+// 	(void)mode->head_b;
+
+// }
 
 
 
