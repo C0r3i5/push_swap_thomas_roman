@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   stack_operations_utils.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: twalter <twalter@student.42heilbronn.de>   +#+  +:+       +#+        */
+/*   By: rulrich <rulrich@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/24 14:36:27 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/26 12:08:08 by twalter          ###   ########.fr       */
+/*   Updated: 2026/11/26 12:42:22 by rulrich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,5 +79,52 @@ void	calculate_rank(t_mode *mode)
 		}
 		cur = cur->bottom;
 		idx_out++;
+	}
+}
+
+size_t	find_max_pos_b(t_mode *mode)
+{
+	t_node	*cur;
+	size_t	idx;
+	size_t	max_pos;
+	int		max_value;
+
+	cur = mode->head_b;
+	max_value = cur->value;
+	max_pos = 0;
+	idx = 0;
+	while (idx < mode->size_b)
+	{
+		if (cur->value > max_value)
+		{
+			max_value = cur->value;
+			max_pos = idx;
+		}
+		cur = cur->bottom;
+		idx++;
+	}
+	return (max_pos);
+}
+
+void	rotate_b_to_pos(t_mode *mode, size_t pos)
+{
+	size_t	steps;
+
+	if (mode->size_b == 0 || pos >= mode->size_b)
+		return ;
+	if (pos <= mode->size_b / 2)
+	{
+		while (pos > 0)
+		{
+			rb(mode);
+			pos--;
+		}
+		return ;
+	}
+	steps = mode->size_b - pos;
+	while (steps > 0)
+	{
+		rrb(mode);
+		steps--;
 	}
 }
