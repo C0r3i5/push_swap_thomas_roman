@@ -6,7 +6,7 @@
 /*   By: twalter <twalter@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/20 22:52:41 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/26 12:09:07 by twalter          ###   ########.fr       */
+/*   Updated: 2026/11/26 12:30:45 by twalter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,32 @@ static int	find_longest_number(t_mode *mode)
 	return (longest_number_value);
 }
 
+static void	sort_inner(t_mode *mode, size_t idx_digit)
+{
+	t_node	*cur;
+	size_t	idx_list;
+
+
+	cur = mode->head_a;
+	idx_list = 0;
+	while (idx_list < mode->size_a)
+	{
+		if (get_digits_bin(cur->helper, idx_digit) == 0)
+			pb(mode);
+		else
+		{
+			ra(mode);
+			idx_list++;
+		} 
+		cur = mode->head_a;
+	}
+	while (mode->size_b > 0)
+		pa(mode);
+}
+
 void	sort_complex(t_mode *mode)
 {
 	size_t	idx_digit;
-	size_t	idx_list;
-	t_node	*cur;
 	size_t	digits;
 
 	idx_digit = 0;
@@ -73,21 +94,7 @@ void	sort_complex(t_mode *mode)
 	calculate_rank(mode);
 	while (idx_digit < digits)
 	{
-		cur = mode->head_a;
-		idx_list = 0;
-		while (idx_list < mode->size_a)
-		{
-			if (get_digits_bin(cur->helper, idx_digit) == 0)
-				pb(mode);
-			else
-			{
-				ra(mode);
-				idx_list++;
-			} 
-			cur = mode->head_a;
-		}
-		while (mode->size_b > 0)
-			pa(mode);
+		sort_inner(mode, idx_digit);
 		if (compute_disorder(*mode) == 0.0)
 			break;
 		idx_digit++;
