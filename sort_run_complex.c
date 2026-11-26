@@ -6,7 +6,7 @@
 /*   By: twalter <twalter@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/20 22:52:41 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/26 11:11:45 by twalter          ###   ########.fr       */
+/*   Updated: 2026/11/26 12:09:07 by twalter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,31 +30,10 @@ static size_t	count_digits_bin(int value)
 
 static size_t	get_digits_bin(int value, size_t digit)
 {
-	size_t	count;
 	long 	un_value;
 
-	count = 0;
 	un_value = (unsigned int)value;
 	return ((un_value >> digit) & 1);
-}
-
-static int	get_lowest_number(t_mode *mode)
-{
-	t_node	*cur;
-	size_t	idx;
-	int		lowest;
-
-	idx = 0;
-	cur = mode->head_a;
-	lowest = 0;
-	while (idx < mode->size_a)
-	{
-		if (cur->value < lowest)
-			lowest = cur->value;
-		cur = cur->bottom;
-		idx++;
-	}
-	return (lowest);
 }
 
 static int	find_longest_number(t_mode *mode)
@@ -84,24 +63,21 @@ static int	find_longest_number(t_mode *mode)
 
 void	sort_complex(t_mode *mode)
 {
-
 	size_t	idx_digit;
 	size_t	idx_list;
 	t_node	*cur;
-	int		lowest_value;
-	long	sort_value;
+	size_t	digits;
 
 	idx_digit = 0;
-	lowest_value = get_lowest_number(mode);
-	
-	while (idx_digit < count_digits_bin(find_longest_number(mode)))
+	digits = count_digits_bin(find_longest_number(mode));
+	calculate_rank(mode);
+	while (idx_digit < digits)
 	{
 		cur = mode->head_a;
 		idx_list = 0;
 		while (idx_list < mode->size_a)
 		{
-			sort_value = -(lowest_value) + cur->value;
-			if (get_digits_bin(sort_value, idx_digit) == 0)
+			if (get_digits_bin(cur->helper, idx_digit) == 0)
 				pb(mode);
 			else
 			{
@@ -112,18 +88,8 @@ void	sort_complex(t_mode *mode)
 		}
 		while (mode->size_b > 0)
 			pa(mode);
-
-
-// idx_list = 0;
-// cur = mode->head_a;
-// while (idx_list < mode->size_a)
-// {	
-// 	printf("Liste %d\n", cur->value);
-// 	idx_list++;
-// 	cur = cur->bottom;
-// }
-
-
+		if (compute_disorder(*mode) == 0.0)
+			break;
 		idx_digit++;
 	}
 }
