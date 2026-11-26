@@ -3,16 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   sort_run_adaptive.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: twalter <twalter@student.42heilbronn.de>   +#+  +:+       +#+        */
+/*   By: rulrich <rulrich@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/20 22:52:54 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/20 22:57:27 by twalter          ###   ########.fr       */
+/*   Updated: 2026/11/26 14:58:07 by rulrich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "push_swap.h"
 
-void	sort_adaptive(t_mode *mode)
-{
-
-}
+void	sort_adaptive(t_mode *mode);

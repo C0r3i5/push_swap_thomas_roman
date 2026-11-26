@@ -6,7 +6,7 @@
 /*   By: rulrich <rulrich@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/20 22:51:46 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/26 13:23:53 by rulrich          ###   ########.fr       */
+/*   Updated: 2026/11/26 14:57:11 by rulrich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	sort_simple(t_mode *mode)
 {
-	int	count_array_loop1;
-	int	count_array_loop2;
+	size_t	count_array_loop1;
+	size_t	count_array_loop2;
 	int	swapped;
 
 	// print_stack(mode);

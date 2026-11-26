@@ -6,7 +6,7 @@
 /*   By: rulrich <rulrich@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/19 13:36:43 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/26 13:43:42 by rulrich          ###   ########.fr       */
+/*   Updated: 2026/11/26 14:56:06 by rulrich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ int	main(int argc, char *argv[])
 {
 	t_node	*lst_a;
 	t_mode	mode;
-	t_node  *node;
 
 	if (argc < 2)
 		return (0);
@@ -91,11 +90,11 @@ int	main(int argc, char *argv[])
 	if (mode.size_a == 0)
 		return (0);
 
-	start_sort(&mode);
+	// start_sort(&mode);
 
 	// ft_debug_print_mode_list(&mode);
 
-	// sort_medium(&mode);
+	sort_medium(&mode);
 
 
 

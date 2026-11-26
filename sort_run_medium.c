@@ -6,7 +6,7 @@
 /*   By: rulrich <rulrich@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/20 22:52:23 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/26 14:20:07 by rulrich          ###   ########.fr       */
+/*   Updated: 2026/11/26 14:54:41 by rulrich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,16 @@ static void	normalize_stack(t_node *stack, int size, size_t max_chunc)
 	}
 }
 
+/**
+ * @brief Pushes elements from stack A to stack B in descending chunk order.
+ *
+ * Iterates through stack A for each chunk index from d down to 0. Elements
+ * matching the current chunk index are pushed to stack B (pb), while others
+ * are rotated to the bottom of stack A (ra).
+ *
+ * @param mode Pointer to the main program structure holding both stacks.
+ * @param d The highest chunk index to start pushing from.
+ */
 static void	push_chunks_to_b(t_mode *mode, int d)
 {
 	int	i;
@@ -105,11 +115,14 @@ void	sort_medium(t_mode *mode)
 	chunk = ft_chunk_count(size);
 	normalize_stack(mode->head_a, size, chunk);
 	d = ((size + chunk - 1) / chunk) - 1;
+	print_stack(mode);
 	push_chunks_to_b(mode, d);
+	print_stack(mode);
 	while (mode->head_b != NULL)
 	{
 		rotate_b_to_pos(mode, find_max_pos_b(mode));
 		pa(mode);
+		print_stack(mode);
 	}
 }
 

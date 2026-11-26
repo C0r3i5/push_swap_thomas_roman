@@ -6,11 +6,12 @@
 /*   By: rulrich <rulrich@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/26 12:47:39 by rulrich           #+#    #+#             */
-/*   Updated: 2026/11/26 12:48:29 by rulrich          ###   ########.fr       */
+/*   Updated: 2026/11/26 14:43:46 by rulrich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include "ft_print_outs.h"
 
 static int	num_len(long long n)
 {
