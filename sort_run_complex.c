@@ -6,31 +6,12 @@
 /*   By: twalter <twalter@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/20 22:52:41 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/26 10:54:05 by twalter          ###   ########.fr       */
+/*   Updated: 2026/11/26 11:11:45 by twalter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "push_swap.h"
 #include <stdio.h>
-static size_t	count_digits(int value)
-{
-	size_t	idx;
-
-	idx = 0;
-	if (value == 0)
-		return (1);
-	if (value < 0)
-	{
-		value = -value;
-		idx++;
-	}
-	while (value > 0)
-	{
-		value = value / 10;
-		idx++;
-	}
-	return (idx);
-}
 
 static size_t	count_digits_bin(int value)
 {
@@ -44,7 +25,6 @@ static size_t	count_digits_bin(int value)
 		un_value >>= 1;
 		count++;
 	}
-	
 	return (count);
 }
 
@@ -55,17 +35,26 @@ static size_t	get_digits_bin(int value, size_t digit)
 
 	count = 0;
 	un_value = (unsigned int)value;
-	// printf("T %ld\n", ((un_value >> digit) & 1));
-
-	// while (un_value > 0)
-	// {
-	// 	un_value = un_value >> 1;
-	// 	if (count == digit - 1)
-	// 		return (un_value & 1);
-	// 	count++;
-	// }
-	
 	return ((un_value >> digit) & 1);
+}
+
+static int	get_lowest_number(t_mode *mode)
+{
+	t_node	*cur;
+	size_t	idx;
+	int		lowest;
+
+	idx = 0;
+	cur = mode->head_a;
+	lowest = 0;
+	while (idx < mode->size_a)
+	{
+		if (cur->value < lowest)
+			lowest = cur->value;
+		cur = cur->bottom;
+		idx++;
+	}
+	return (lowest);
 }
 
 static int	find_longest_number(t_mode *mode)
@@ -93,105 +82,49 @@ static int	find_longest_number(t_mode *mode)
 	return (longest_number_value);
 }
 
-
-// static int	get_digit(int value, size_t pos)
-// {
-// 	size_t	idx;
-// 	int		multip;
-
-// 	idx = 0;
-// 	multip = 1;
-// 	while (idx < pos)
-// 	{
-// 		multip = multip * 10;
-// 		idx++;
-// 	}
-// 	return (value / multip % 10);
-// }
-
 void	sort_complex(t_mode *mode)
 {
 
-
-	// printf("1 %d\n", find_longest_number(mode));
-	// printf("2 %lu\n", count_digits_bin(1));
-	// printf("3 %lu\n", get_digits_bin(-1, 0));
-	// printf("3 %lu\n", get_digits_bin(-1, 1));
-
-	// printf("T %d\n", ((2 >> 0) & 1));
-	// printf("T %d\n", ((2 >> 1) & 1));
-	// printf("T %d\n", ((2 >> 2) & 1));
-	
 	size_t	idx_digit;
 	size_t	idx_list;
 	t_node	*cur;
-	size_t	max_digits;
+	int		lowest_value;
+	long	sort_value;
 
 	idx_digit = 0;
+	lowest_value = get_lowest_number(mode);
 	
-	max_digits = count_digits_bin(find_longest_number(mode));
-	printf("Max digits %zu mit longest %d\n", max_digits, find_longest_number(mode));
-	while (idx_digit < max_digits)
+	while (idx_digit < count_digits_bin(find_longest_number(mode)))
 	{
 		cur = mode->head_a;
 		idx_list = 0;
 		while (idx_list < mode->size_a)
 		{
-			printf("SizeA: %zu, Value %d, digit %zu\n", mode->size_a, cur->value, get_digits_bin(cur->value, idx_digit));
-			if (cur->value > 0)
-			{
-				if (get_digits_bin(cur->value, idx_digit) == 0)
-					pb(mode);
-				else
-				{
-					ra(mode);
-					idx_list++;
-				} 
-			} 
+			sort_value = -(lowest_value) + cur->value;
+			if (get_digits_bin(sort_value, idx_digit) == 0)
+				pb(mode);
 			else
 			{
-				if (get_digits_bin(cur->value, idx_digit) == 1)
-					pb(mode);
-				else
-				{
-					ra(mode);
-					idx_list++;
-				} 
-			}
-			
-
+				ra(mode);
+				idx_list++;
+			} 
 			cur = mode->head_a;
-			
 		}
 		while (mode->size_b > 0)
-		{
-			// printf("T: %d\n", mode->head_b->value);
 			pa(mode);
-		}
 
 
-idx_list = 0;
-cur = mode->head_a;
-while (idx_list < mode->size_a)
-{	
-	printf("Liste %d\n", cur->value);
-	idx_list++;
-	cur = cur->bottom;
-}
+// idx_list = 0;
+// cur = mode->head_a;
+// while (idx_list < mode->size_a)
+// {	
+// 	printf("Liste %d\n", cur->value);
+// 	idx_list++;
+// 	cur = cur->bottom;
+// }
 
 
 		idx_digit++;
 	}
-
-
-	idx_list = 0;
-	cur = mode->head_a;
-	while (idx_list < mode->size_a)
-	{	
-		printf("Liste %d\n", cur->value);
-		idx_list++;
-		cur = cur->bottom;
-	}
-
 }
 
