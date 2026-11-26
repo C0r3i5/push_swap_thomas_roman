@@ -6,17 +6,16 @@
 /*   By: twalter <twalter@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/20 22:52:41 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/26 12:30:45 by twalter          ###   ########.fr       */
+/*   Updated: 2026/11/26 13:00:26 by twalter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "push_swap.h"
-#include <stdio.h>
+#include "push_swap.h"
 
 static size_t	count_digits_bin(int value)
 {
 	size_t	count;
-	long 	un_value;
+	long	un_value;
 
 	count = 0;
 	un_value = (unsigned int)value;
@@ -30,7 +29,7 @@ static size_t	count_digits_bin(int value)
 
 static size_t	get_digits_bin(int value, size_t digit)
 {
-	long 	un_value;
+	long	un_value;
 
 	un_value = (unsigned int)value;
 	return ((un_value >> digit) & 1);
@@ -66,7 +65,6 @@ static void	sort_inner(t_mode *mode, size_t idx_digit)
 	t_node	*cur;
 	size_t	idx_list;
 
-
 	cur = mode->head_a;
 	idx_list = 0;
 	while (idx_list < mode->size_a)
@@ -77,7 +75,7 @@ static void	sort_inner(t_mode *mode, size_t idx_digit)
 		{
 			ra(mode);
 			idx_list++;
-		} 
+		}
 		cur = mode->head_a;
 	}
 	while (mode->size_b > 0)
@@ -96,8 +94,7 @@ void	sort_complex(t_mode *mode)
 	{
 		sort_inner(mode, idx_digit);
 		if (compute_disorder(*mode) == 0.0)
-			break;
+			break ;
 		idx_digit++;
 	}
 }
-
