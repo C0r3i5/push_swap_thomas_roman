@@ -6,7 +6,7 @@
 /*   By: rulrich <rulrich@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/20 22:52:23 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/26 14:54:41 by rulrich          ###   ########.fr       */
+/*   Updated: 2026/11/26 15:02:35 by rulrich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,14 +115,11 @@ void	sort_medium(t_mode *mode)
 	chunk = ft_chunk_count(size);
 	normalize_stack(mode->head_a, size, chunk);
 	d = ((size + chunk - 1) / chunk) - 1;
-	print_stack(mode);
 	push_chunks_to_b(mode, d);
-	print_stack(mode);
 	while (mode->head_b != NULL)
 	{
 		rotate_b_to_pos(mode, find_max_pos_b(mode));
 		pa(mode);
-		print_stack(mode);
 	}
 }
 
