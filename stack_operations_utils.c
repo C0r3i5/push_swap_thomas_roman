@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   stack_operations_utils.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rulrich <rulrich@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: twalter <twalter@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/24 14:36:27 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/26 12:42:22 by rulrich          ###   ########.fr       */
+/*   Updated: 2026/11/26 13:08:30 by twalter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "push_swap.h"
+#include "push_swap.h"
 
 /// @brief Rotate stack a to bring the node at pos to the top via shortest path
 /// @param mode Program configuration and operation counters

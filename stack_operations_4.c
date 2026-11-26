@@ -6,11 +6,11 @@
 /*   By: twalter <twalter@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/20 16:12:12 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/20 21:51:44 by twalter          ###   ########.fr       */
+/*   Updated: 2026/11/26 13:08:16 by twalter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "push_swap.h"
+#include "push_swap.h"
 
 /// @brief Cut the top node from the list
 /// @param head Pointer to the head node of the circular list

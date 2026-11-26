@@ -6,11 +6,11 @@
 /*   By: twalter <twalter@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/20 15:20:39 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/20 21:53:58 by twalter          ###   ########.fr       */
+/*   Updated: 2026/11/26 13:06:09 by twalter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "push_swap.h"
+#include "push_swap.h"
 
 /// @brief Swap the first and second node in a list
 /// @param head Pointer to the head node of the circular list
@@ -22,7 +22,6 @@ static void	swap(t_node **head, size_t *size)
 
 	if (*size < 2)
 		return ;
-
 	first_node = *head;
 	second_node = first_node->bottom;
 	if (*size > 2)
@@ -62,6 +61,7 @@ void	sb(t_mode *mode)
 	mode->sb += 1;
 	ft_printf("sb\n");
 }
+
 /// @brief sa and sb at the same time
 /// @param mode Program configuration and operation counters
 void	ss(t_mode *mode)
@@ -70,6 +70,6 @@ void	ss(t_mode *mode)
 		return ;
 	swap(&mode->head_a, &mode->size_a);
 	swap(&mode->head_b, &mode->size_b);
-    mode->ss += 1;
+	mode->ss += 1;
 	ft_printf("ss\n");
 }
