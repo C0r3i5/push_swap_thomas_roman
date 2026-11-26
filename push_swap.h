@@ -6,7 +6,7 @@
 /*   By: twalter <twalter@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/19 13:29:16 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/26 12:49:43 by twalter          ###   ########.fr       */
+/*   Updated: 2026/11/26 14:38:20 by twalter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ typedef struct s_mode
 	size_t	size_b;
 }			t_mode;
 
-int	parse_arguments(int argc, char **argv, t_mode *mode, t_node **lst_a);
+int		parse_arguments(int argc, char **argv, t_mode *mode, t_node **lst_a);
 
 t_node	*new_node(int value);
 int		find_dub(t_node **lst, int value);
@@ -128,8 +128,8 @@ void	sort_medium(t_mode *mode);
 void	sort_complex(t_mode *mode);
 void	sort_adaptive(t_mode *mode);
 
-void rotate_to_pos(t_mode *mode, size_t pos);
-size_t find_insert_pos(t_mode *mode, int val);
+void	rotate_to_pos(t_mode *mode, size_t pos);
+size_t	find_insert_pos(t_mode *mode, int val);
 void	calculate_rank(t_mode *mode);
 
 /**
