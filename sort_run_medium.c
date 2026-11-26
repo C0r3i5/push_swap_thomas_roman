@@ -6,25 +6,15 @@
 /*   By: rulrich <rulrich@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/20 22:52:23 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/26 13:08:07 by rulrich          ###   ########.fr       */
+/*   Updated: 2026/11/26 14:05:33 by rulrich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static int	ft_chunk_count(size_t size)
-{
-	int	chunk_count;
-	int	chunk_size;
+#include "push_swap.h"
 
-	chunk_count = 1;
-	while (chunk_count * chunk_count < size)
-		chunk_count++;
-	chunk_size = (size + chunk_count - 1) / chunk_count;
-	return (chunk_size);
-}
-
-static void	normalize_stack(t_node *stack, int size, size_t max_chunc)
+static void	normalize_stack(t_node *stack, int size)
 {
 	t_node	*current;
 	t_node	*other;
@@ -32,8 +22,6 @@ static void	normalize_stack(t_node *stack, int size, size_t max_chunc)
 	int		i;
 	int		j;
 
-	if (!stack || size <= 0 || max_chunc == 0)
-		return ;
 	current = stack;
 	i = 0;
 	while (i < size)
@@ -48,42 +36,103 @@ static void	normalize_stack(t_node *stack, int size, size_t max_chunc)
 			other = other->bottom;
 			j++;
 		}
-		current->helper = rank / max_chunc;
+		current->helper = rank;
 		current = current->bottom;
 		i++;
 	}
 }
 
-void	sort_medium(t_mode *mode)
+static size_t	find_second_max_pos_b(t_mode *mode, size_t max_pos)
 {
-	int	chunk;
-	int	size;
-	int	d;
+	t_node	*cur;
+	size_t	idx;
+	size_t	sec_pos;
+	int		sec_val;
+
+	cur = mode->head_b;
+	sec_val = -2147483648;
+	sec_pos = 0;
+	idx = 0;
+	while (idx < mode->size_b)
+	{
+		if (idx != max_pos && cur->value >= sec_val)
+		{
+			sec_val = cur->value;
+			sec_pos = idx;
+		}
+		cur = cur->bottom;
+		idx++;
+	}
+	return (sec_pos);
+}
+
+static void	push_all_to_b(t_mode *mode, int range)
+{
 	int	i;
 
-	size = mode->size_a;
-
-	if (size <= 1)
-		return ;
-	chunk = ft_chunk_count(size);
-	normalize_stack(mode->head_a, size, chunk);
-	d = ((size + chunk - 1) / chunk) - 1;
-	while (d >= 0)
+	i = 0;
+	while (mode->size_a > 0)
 	{
-		i = 0;
-		while (i < size)
+		if (mode->head_a->helper <= i)
 		{
-			if (mode->head_a != NULL && mode->head_a->helper == d)
-				pb(mode);
-			else
-				ra(mode);
+			pb(mode);
+			rb(mode);
 			i++;
 		}
-		while (mode->head_b != NULL)
+		else if (mode->head_a->helper <= i + range)
 		{
-			rotate_b_to_pos(mode, find_max_pos_b(mode));
-			pa(mode);
+			pb(mode);
+			i++;
 		}
-		d--;
+		else
+			ra(mode);
 	}
 }
+
+static void	push_back_to_a(t_mode *mode)
+{
+	size_t	max_pos;
+	size_t	sec_pos;
+	size_t	cost_max;
+	size_t	cost_sec;
+
+	while (mode->head_b != NULL)
+	{
+		max_pos = find_max_pos_b(mode);
+		sec_pos = find_second_max_pos_b(mode, max_pos);
+		cost_max = max_pos;
+		if (max_pos > mode->size_b / 2)
+			cost_max = mode->size_b - max_pos;
+		cost_sec = sec_pos;
+		if (sec_pos > mode->size_b / 2)
+			cost_sec = mode->size_b - sec_pos;
+		if (mode->size_b > 1 && cost_sec < cost_max)
+		{
+			rotate_b_to_pos(mode, sec_pos);
+			pa(mode);
+			rotate_b_to_pos(mode, find_max_pos_b(mode));
+			pa(mode);
+			sa(mode);
+			continue ;
+		}
+		rotate_b_to_pos(mode, max_pos);
+		pa(mode);
+	}
+}
+
+void	sort_medium(t_mode *mode)
+{
+	int	size;
+	int	range;
+
+	size = mode->size_a;
+	if (size <= 1)
+		return ;
+	normalize_stack(mode->head_a, size);
+	range = 15;
+	if (size > 100)
+		range = 32;
+	push_all_to_b(mode, range);
+	push_back_to_a(mode);
+}
+
