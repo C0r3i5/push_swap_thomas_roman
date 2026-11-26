@@ -6,7 +6,7 @@
 /*   By: twalter <twalter@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/19 13:29:16 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/20 22:57:33 by twalter          ###   ########.fr       */
+/*   Updated: 2026/11/26 12:09:18 by twalter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ typedef struct s_node
 	struct s_node	*top;
 	struct s_node	*bottom;
 	size_t			position;
+	int				helper;
+
 }					t_node;
 
 /// @brief Struct for program mode and counter for bench mode
@@ -92,4 +94,5 @@ void	sort_medium(t_mode *mode);
 void	sort_complex(t_mode *mode);
 void	sort_adaptive(t_mode *mode);
 
+void	calculate_rank(t_mode *mode);
 #endif
