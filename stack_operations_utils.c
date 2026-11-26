@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   stack_operations_utils.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: twalter <twalter@student.42heilbronn.de>   +#+  +:+       +#+        */
+/*   By: rulrich <rulrich@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/24 14:36:27 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/24 14:37:37 by twalter          ###   ########.fr       */
+/*   Updated: 2026/11/26 10:49:52 by rulrich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
