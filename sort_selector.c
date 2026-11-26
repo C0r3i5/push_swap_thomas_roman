@@ -6,16 +6,16 @@
 /*   By: twalter <twalter@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/20 20:48:12 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/24 10:30:57 by twalter          ###   ########.fr       */
+/*   Updated: 2026/11/26 13:21:28 by twalter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "push_swap.h"
+#include "push_swap.h"
 
 /// @brief Resolve the effective sorting algorithm based on flags and disorder
 /// @param mode Program configuration and operation counters
 /// @return The resolved algorithm (SIMPLE, MEDIUM, or COMPLEX)
-static t_algo    resolve_algo(t_mode *mode)
+static t_algo	resolve_algo(t_mode *mode)
 {
 	if (mode->algo == NONE)
 		mode->algo = ADAPTIVE;
@@ -111,10 +111,8 @@ void	start_sort(t_mode *mode)
 {
 	mode->disorder = compute_disorder(*mode);
 	resolve_algo(mode);
-
 	if (mode->disorder == 0.0 || mode->size_a < 2)
 		return ;
-
 	if (mode->size_a == 2
 		&& mode->head_a->value > mode->head_a->bottom->value)
 		sa(mode);

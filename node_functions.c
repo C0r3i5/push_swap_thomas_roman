@@ -6,11 +6,11 @@
 /*   By: twalter <twalter@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/20 13:23:14 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/20 21:53:29 by twalter          ###   ########.fr       */
+/*   Updated: 2026/11/26 13:20:21 by twalter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "push_swap.h"
+#include "push_swap.h"
 
 /// @brief Create a new unconnected node with the value
 /// @param value Signed Int value
@@ -33,12 +33,12 @@ t_node	*new_node(int value)
 /// @param lst The existing list
 /// @param value The new value to check
 /// @return Duplicate 1, unique 0
-int	find_dub(t_node **lst, int value) 
+int	find_dub(t_node **lst, int value)
 {
-	t_node *node_current;
-	t_node *node_start;
-	
-	if (lst == NULL) 
+	t_node	*node_current;
+	t_node	*node_start;
+
+	if (lst == NULL)
 		return (0);
 	node_start = *lst;
 	if (node_start == NULL)
@@ -62,8 +62,8 @@ int	find_dub(t_node **lst, int value)
 /// @return Error -1, Success 0
 int	append_unique(t_node **lst_a, t_node *node, t_mode *mode)
 {
-	t_node *node_current_last;
-	t_node *node_start;
+	t_node	*node_current_last;
+	t_node	*node_start;
 
 	if (*lst_a == NULL)
 	{
@@ -97,15 +97,15 @@ double	compute_disorder(t_mode mode)
 {
 	size_t	mistakes;
 	size_t	total_pairs;
-	t_node 	*node_current_1;
-	t_node 	*node_current_2;
-	
-	if (mode.head_a == NULL || mode.size_a < 2) 
+	t_node	*node_current_1;
+	t_node	*node_current_2;
+
+	if (mode.head_a == NULL || mode.size_a < 2)
 		return (0.0);
 	mistakes = 0;
 	total_pairs = mode.size_a * (mode.size_a - 1) / 2;
 	node_current_1 = mode.head_a;
-	while (node_current_1->bottom != mode.head_a )
+	while (node_current_1->bottom != mode.head_a)
 	{
 		node_current_2 = node_current_1->bottom;
 		while (node_current_2 != mode.head_a)
@@ -116,7 +116,7 @@ double	compute_disorder(t_mode mode)
 		}
 		node_current_1 = node_current_1->bottom;
 	}
-	return((double)mistakes / total_pairs);
+	return ((double)mistakes / total_pairs);
 }
 
 /// @brief Recalculate node positions and update the stack size
@@ -124,8 +124,8 @@ double	compute_disorder(t_mode mode)
 /// @param size Pointer to the stack size counter to update
 void	heal_node_list(t_node **head, size_t *size)
 {
-	t_node *node_current;
-	t_node *node_head;
+	t_node	*node_current;
+	t_node	*node_head;
 	size_t	idx;
 
 	idx = 0;

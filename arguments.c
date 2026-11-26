@@ -6,11 +6,11 @@
 /*   By: twalter <twalter@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/20 13:19:35 by twalter           #+#    #+#             */
-/*   Updated: 2026/11/20 21:52:50 by twalter          ###   ########.fr       */
+/*   Updated: 2026/11/26 13:10:26 by twalter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "push_swap.h"
+#include "push_swap.h"
 
 /// @brief Free a NULL-terminated array of strings.
 /// @param parts List with items
@@ -32,7 +32,7 @@ static void	free_split(char **parts)
 /// @brief Convert a string to a number (if possible) and create a new node
 /// @param arg Argument, should be a signed int number
 /// @return A new node element or NULL on error
-static t_node *atoi_strict_node(char *arg)
+static t_node	*atoi_strict_node(char *arg)
 {
 	size_t	idx;
 	int		sign;
@@ -99,7 +99,7 @@ static int	parse_number_arg(char *arg, t_node **lst_a, t_mode *mode)
 /// @param arg The argument to check
 /// @param mode Program configuration and operation counters
 /// @return Valid flag 1, not a known flag 0, -1 on conflicting strategy flags
-static int is_flag(char *arg, t_mode *mode)
+static int	is_flag(char *arg, t_mode *mode)
 {
 	t_algo	parsed_algo;
 
@@ -131,7 +131,7 @@ static int is_flag(char *arg, t_mode *mode)
 /// @param mode Program configuration and operation counters
 /// @param lst_a List with the received numbers
 /// @return 0 if all arguments are valid, -1 if an invalid arg is in the list
-int parse_arguments(int argc, char **argv, t_mode *mode, t_node **lst_a)
+int	parse_arguments(int argc, char **argv, t_mode *mode, t_node **lst_a)
 {
 	int	idx;
 	int	ret_parse_arg;
